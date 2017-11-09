@@ -1,5 +1,5 @@
 import './event.jade';
-import { Events } from '../../../api/events/events.js';
+import { Events } from '../../api/events/events.js';
 
 Template.event.onCreated(function helloOnCreated() {
   this.getFriendlyId = () => {

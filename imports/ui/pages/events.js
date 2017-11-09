@@ -1,5 +1,5 @@
 import './events.jade';
-import { Events } from '../../../api/events/events.js';
+import { Events } from '../../api/events/events.js';
 
 Template.events.onCreated(function helloOnCreated() {
   Meteor.subscribe('events');

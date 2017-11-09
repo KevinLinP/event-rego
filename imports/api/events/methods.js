@@ -5,7 +5,7 @@ import { check } from 'meteor/check';
 import { Events } from './events.js';
 
 Meteor.methods({
-  'createEvent'(name, cashAmount) {
+  'events.insert'(name, cashAmount) {
     var friendlyUrl = require('friendly-url');
 
     check(name, String);
@@ -18,5 +18,9 @@ Meteor.methods({
       friendlyId,
       createdAt: new Date(),
     });
+  },
+
+  'events.remove'(id) {
+    return Events.remove({_id: id});
   },
 });

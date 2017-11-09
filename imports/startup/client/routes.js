@@ -7,6 +7,7 @@ import '../../ui/pages/home/home.js';
 import '../../ui/pages/not-found/not-found.js';
 
 import '../../ui/components/event/events.js';
+import '../../ui/components/event/event.js';
 
 // Set up all routes in the app
 FlowRouter.route('/', {
@@ -14,6 +15,20 @@ FlowRouter.route('/', {
   action() {
     BlazeLayout.render('App_body', { main: 'events' });
   },
+});
+
+FlowRouter.route('/events', {
+  name: 'Events.index',
+  action() {
+    BlazeLayout.render('App_body', { main: 'events' });
+  },
+});
+
+FlowRouter.route('/:friendlyId', {
+  name: 'Events.show',
+  action(params, queryParams) {
+    BlazeLayout.render('App_body', { main: 'event' });
+  }
 });
 
 FlowRouter.notFound = {

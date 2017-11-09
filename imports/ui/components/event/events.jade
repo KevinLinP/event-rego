@@ -3,7 +3,7 @@ template(name="events")
     h1.h4 New Event
 
   .mb-5
-    form#new-event-form.event-form
+    form.event-form.js-new-event-form
       .mr-1
         input(type='text' name='name' placeholder='name')
 
@@ -20,7 +20,16 @@ template(name="events")
     tr
       th name
       th hash cash
+      th
     each events
-      tr(data-id=_id data-friendly-id=friendlyId)
-        td= name
-        td= cashAmount
+      +eventRow
+
+template(name="eventRow")
+  tr(data-friendly-id=friendlyId)
+    td
+      a(href=url)= name
+
+    td= cashAmount
+    td
+      button(data-id=_id class='event-delete-button js-delete-event-button')
+        i.fa.fa-trash

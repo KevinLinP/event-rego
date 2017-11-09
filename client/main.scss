@@ -7,3 +7,8 @@
     @extend .form-control;
   }
 }
+
+.event-delete-button {
+  @extend .btn;
+  @extend .btn-danger;
+}

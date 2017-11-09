@@ -8,20 +8,31 @@ Template.events.onCreated(function helloOnCreated() {
     const name = this.$('[name=name]').val().trim();
     const cashAmount = Number.parseFloat(this.$('[name=cashAmount]').val());
 
-    Meteor.call('createEvent', name, cashAmount);
+    Meteor.call('events.insert', name, cashAmount);
   };
 });
 
 Template.events.helpers({
   events() {
-    console.log(Events.find({}).count());
     return Events.find({});
   }
 });
 
 Template.events.events({
-  'submit #new-event-form'(event, instance) {
+  'submit .js-new-event-form'(event, instance) {
     event.preventDefault();
     instance.createEvent();
-  },
+  }
+});
+
+Template.eventRow.helpers({
+  url() {
+    return `/${this.friendlyId}`;
+  }
+});
+
+Template.eventRow.events({
+  'click .js-delete-event-button'(event, instance) {
+    Meteor.call('events.remove', this._id);
+  }
 });

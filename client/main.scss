@@ -1,0 +1,9 @@
+@import "{}/node_modules/bootstrap/scss/bootstrap.scss";
+
+.event-form {
+  @extend .form-inline;
+
+  input {
+    @extend .form-control;
+  }
+}

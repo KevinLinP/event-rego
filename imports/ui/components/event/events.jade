@@ -1,0 +1,26 @@
+template(name="events")
+  .mb-2
+    h1.h4 New Event
+
+  .mb-5
+    form#new-event-form.event-form
+      .mr-1
+        input(type='text' name='name' placeholder='name')
+
+      .input-group.mr-1
+        .input-group-addon $
+        input(type='number' name='cashAmount' placeholder='cash amount' step="1.00")
+
+      button(type="submit" class="btn btn-primary") create
+
+  .mb-2
+    h1.h3 Events
+
+  table.table
+    tr
+      th name
+      th hash cash
+    each events
+      tr(data-id=_id data-friendly-id=friendlyId)
+        td= name
+        td= cashAmount

@@ -24,3 +24,4 @@ Meteor.methods({
     return Events.remove({_id: id});
   },
 });
+

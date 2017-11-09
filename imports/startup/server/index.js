@@ -7,3 +7,5 @@ import '../../api/events/server/publications.js';
 import '../../api/people/people.js';
 import '../../api/people/methods.js';
 import '../../api/people/server/publications.js';
+
+import '../../api/paypal/methods.js';

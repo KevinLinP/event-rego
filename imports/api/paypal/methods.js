@@ -1,16 +1,13 @@
 import { Meteor } from 'meteor/meteor';
+import { Promise } from 'meteor/promise';
 import { check } from 'meteor/check';
 
 Meteor.methods({
   'paypal.createPayment'(eventId, personId) {
-    var paypal = require('paypal-rest-sdk');
-    console.log(process.env.PAYPAL_CLIENT_ID);
+    const paypal = require('paypal-rest-sdk');
 
-    paypal.configure({
-      'mode': 'sandbox', //sandbox or live
-      'client_id': process.env.PAYPAL_CLIENT_ID,
-      'client_secret': process.env.PAYPAL_CLIENT_SECRET
-    });
+    let env = new paypal.SandboxEnvironment(process.env.PAYPAL_CLIENT_ID, process.env.PAYPAL_CLIENT_SECRET);
+    let client = new paypal.PayPalHttpClient(env);
 
     const payment = {
       intent: 'sale',
@@ -28,16 +25,13 @@ Meteor.methods({
         },
         description: 'Rego'
       }]
-    }
+    };
 
-    paypal.payment.create(payment, function (error, payment) {
-      if (error) {
-        console.log(error);
-        throw error;
-      } else {
-        console.log(payment.id);
-        return payment.id;
-      }
-    });
+    let request = new paypal.PaymentCreateRequest();
+    request.requestBody(payment);
+
+    const response = Promise.await(client.execute(request));
+
+    return response.result.id;
   },
 });

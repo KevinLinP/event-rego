@@ -1,6 +1,6 @@
 @import "{}/node_modules/bootstrap/scss/bootstrap.scss";
 
-.event-form {
+.event-form, .person-form {
   @extend .form-inline;
 
   input {

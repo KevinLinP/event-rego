@@ -1,38 +1,37 @@
 import './people.jade';
 import { People } from '../../api/people/people.js';
 
-//Template.events.onCreated(function helloOnCreated() {
-  //Meteor.subscribe('events');
+Template.people.onCreated(function() {
+  Meteor.subscribe('people');
+});
 
-  //this.createEvent = () => {
-    //const name = this.$('[name=name]').val().trim();
-    //const cashAmount = Number.parseFloat(this.$('[name=cashAmount]').val());
+Template.people.helpers({
+  people() {
+    return People.find({});
+  }
+});
 
-    //Meteor.call('events.insert', name, cashAmount);
-  //};
-//});
+Template.personRow.helpers({
+  payPath(event) {
+    const eventId = Template.parentData(1).event.friendlyId;
+    const personId = Template.currentData().friendlyId;
 
-//Template.events.helpers({
-  //events() {
-    //return Events.find({});
-  //}
-//});
+    return `/${eventId}/pay?person=${personId}`;
+  }
+});
 
-//Template.events.events({
-  //'submit .js-new-event-form'(event, instance) {
-    //event.preventDefault();
-    //instance.createEvent();
-  //}
-//});
+Template.personForm.onCreated(function() {
+  this.createPerson = () => {
+    const name = this.$('[name=name]').val().trim();
+    const phoneNumber = this.$('[name=phoneNumber]').val().trim();
 
-//Template.eventRow.helpers({
-  //url() {
-    //return `/${this.friendlyId}`;
-  //}
-//});
+    Meteor.call('people.insert', name, phoneNumber);
+  };
+});
 
-//Template.eventRow.events({
-  //'click .js-delete-event-button'(event, instance) {
-    //Meteor.call('events.remove', this._id);
-  //}
-//});
+Template.personForm.events({
+  'submit form'(event, instance) {
+    event.preventDefault();
+    instance.createPerson();
+  }
+});

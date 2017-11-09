@@ -5,7 +5,7 @@ import '../components/people.js';
 
 Template.event.onCreated(function helloOnCreated() {
   this.getFriendlyId = () => {
-    return FlowRouter.getParam('friendlyId');
+    return FlowRouter.getParam('eventFriendlyId');
   }
 
   this.autorun(() => {
@@ -15,7 +15,7 @@ Template.event.onCreated(function helloOnCreated() {
 
 Template.event.helpers({
   event() {
-    const friendlyId = FlowRouter.getParam('friendlyId');
+    const friendlyId = FlowRouter.getParam('eventFriendlyId');
     return Events.findOne({friendlyId: friendlyId});
   }
 });

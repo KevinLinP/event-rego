@@ -7,6 +7,7 @@ import '../../ui/pages/not-found/not-found.js';
 
 import '../../ui/pages/events.js';
 import '../../ui/pages/event.js';
+import '../../ui/pages/event-pay.js';
 
 // Set up all routes in the app
 FlowRouter.route('/', {
@@ -23,10 +24,17 @@ FlowRouter.route('/events', {
   },
 });
 
-FlowRouter.route('/:friendlyId', {
+FlowRouter.route('/:eventFriendlyId', {
   name: 'Events.show',
   action(params, queryParams) {
     BlazeLayout.render('App_body', { main: 'event' });
+  }
+});
+
+FlowRouter.route('/:eventFriendlyId/pay', {
+  name: 'Events.pay',
+  action(params, queryParams) {
+    BlazeLayout.render('App_body', { main: 'eventPay' });
   }
 });
 

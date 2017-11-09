@@ -11,9 +11,9 @@ template(name="people")
       +personRow
 
 template(name="personRow")
-  tr
+  tr(data-friendly-id=friendlyId)
     td #{name}
-    td #{phoneNumber}
+    td(data-e164-phone-number=e164PhoneNumber) #{nationalPhoneNumber}
     td
       a(href=payPath) Pay
 
@@ -25,4 +25,4 @@ template(name="personForm")
     .mr-1
       input(type='tel' name='phoneNumber' placeholder='phone number' required='true')
 
-    button(type="submit" class="btn btn-primary") create
+    button(type="submit" class="btn btn-primary") add

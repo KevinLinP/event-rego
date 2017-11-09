@@ -4,20 +4,35 @@ import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { People } from './people.js';
 
+const formatPhoneNumber = (phoneNumber) => {
+  const lib = require('google-libphonenumber');
+  const PNF = lib.PhoneNumberFormat;
+  const phoneUtil = lib.PhoneNumberUtil.getInstance();
+
+  const parsedNumber = phoneUtil.parse(phoneNumber, 'US');
+
+  return {
+    nationalPhoneNumber: phoneUtil.format(parsedNumber, PNF.NATIONAL),
+    e164PhoneNumber: phoneUtil.format(parsedNumber, PNF.E164),
+  }
+};
+
 Meteor.methods({
   'people.insert'(name, phoneNumber) {
-    var friendlyUrl = require('friendly-url');
+    const phoneNumbers = formatPhoneNumber(phoneNumber);
 
-    check(name, String);
-    check(phoneNumber, String);
+    const friendlyUrl = require('friendly-url');
     const friendlyId = friendlyUrl(name);
 
-    return People.insert({
+    const person = {
       name,
-      phoneNumber,
+      ...phoneNumbers,
       friendlyId,
       createdAt: new Date(),
-    });
+    }
+
+    People.schema.validate(person);
+    return People.insert(person);
   },
 
   'people.remove'(id) {

@@ -2,6 +2,11 @@ import { Meteor } from 'meteor/meteor';
 import { Promise } from 'meteor/promise';
 import { check } from 'meteor/check';
 
+import { Events } from '../events/events.js';
+import { People } from '../people/people.js';
+import { PendingPayments } from '../pending-payments/pending-payments.js';
+import { AuthorizedPayments } from '../authorized-payments/authorized-payments.js';
+
 Meteor.methods({
   'paypal.createPayment'(eventId, personId) {
     const paypal = require('paypal-rest-sdk');

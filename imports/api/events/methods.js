@@ -12,12 +12,15 @@ Meteor.methods({
     check(cashAmount, Number);
     const friendlyId = friendlyUrl(name);
 
-    return Events.insert({
+    const event = {
       name,
       cashAmount,
       friendlyId,
       createdAt: new Date(),
-    });
+    }
+
+    Events.schema.validate(event);
+    return Events.insert(event);
   },
 
   'events.remove'(id) {

@@ -68,7 +68,7 @@ Template.eventPay.onRendered(function() {
 
       this.$('script').ready(() => {
         this.paypalInterval = setInterval(() => {
-          if (window.paypal) {
+          if (window.paypal && window.paypal.Button && window.paypal.Button.render) {
             clearInterval(this.paypalInterval);
             attachPaypal(event, person);
           }

@@ -28,3 +28,5 @@ fourseven:scss
 mquandalle:jade
 jquery
 dburles:collection-helpers
+percolate:migrations
+aldeed:simple-schema

@@ -1,6 +1,8 @@
 import './event.jade';
 import { Events } from '../../api/events/events.js';
 
+import '../components/people.js';
+
 Template.event.onCreated(function helloOnCreated() {
   this.getFriendlyId = () => {
     return FlowRouter.getParam('friendlyId');

@@ -1,0 +1,26 @@
+template(name="people")
+  .mb-5
+    +personForm
+
+  table.table
+    tr
+      th name
+      th phone number
+      th
+    each people
+      +personRow
+
+template(name="personRow")
+  tr
+    td #{name}
+    td #{phoneNumber}
+
+template(name="personForm")
+  form.person-form
+    .mr-1
+      input(type='text' name='name' placeholder='name' required='true')
+
+    .mr-1
+      input(type='tel' name='phoneNumber' placeholder='phone number' required='true')
+
+    button(type="submit" class="btn btn-primary") create

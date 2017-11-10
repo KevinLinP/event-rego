@@ -11,3 +11,13 @@ Regos.schema = new SimpleSchema({
     return new Date();
   }}
 });
+
+Regos.helpers({
+  completed() {
+    return (this.status == 'completed');
+  },
+
+  inProgress() {
+    return (this.status == 'in_progress');
+  }
+});

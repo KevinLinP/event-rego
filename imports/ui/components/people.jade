@@ -10,20 +10,23 @@ template(name="people")
       +personRow
 
 template(name="personRow")
-  tr(data-friendly-id=friendlyId)
+  tr(data-friendly-id=friendlyId class=rowClass)
     td #{name}
     td
-      span.mr-md-2
-        button(class=sendLinkClasses)
-          i.fa.fa-share
-          i.fa.fa-mobile
-      span.mr-md-2
-        a(href=payPath class='paypal-pay-button')
-          i.fa.fa-paypal
-      span.mr-md-2
-        button(class='cash-paid-button')
-          i.fa.fa-money
-          i.fa.fa-check
+      if paid
+        | Paid
+      else
+        span.mr-md-2
+          button(class=sendLinkClasses)
+            i.fa.fa-share
+            i.fa.fa-mobile
+        span.mr-md-2
+          a(href=payPath class='paypal-pay-button')
+            i.fa.fa-paypal
+        span.mr-md-2
+          button(class='cash-paid-button')
+            i.fa.fa-money
+            i.fa.fa-check
 
 template(name="personForm")
   form.person-form

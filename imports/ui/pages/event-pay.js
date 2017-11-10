@@ -111,7 +111,7 @@ Template.eventPay.helpers({
   pendingClass() {
     const rego = fetchRego();
     console.log(rego);
-    if (rego && (rego.status == 'in_progress')) {
+    if (rego && rego.inProgress()) {
       return '';
     } else {
       return 'd-none';
@@ -120,7 +120,7 @@ Template.eventPay.helpers({
 
   paymentCompletedClass() {
     const rego = fetchRego();
-    if (rego && (rego.status == 'completed')) {
+    if (rego && rego.completed()) {
       return '';
     } else {
       return 'd-none';

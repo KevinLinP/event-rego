@@ -44,7 +44,7 @@ const paymentObj = function(event, person) {
     transactions: [{
       amount: {
         currency: 'USD',
-        total: event.paypalTotal(),
+        total: event.paypalTotal()
       },
       item_list: {
         items: items
@@ -59,6 +59,23 @@ const fetchObjects = (eventId, personId) => {
     person: People.findOne(personId)
   };
 }
+
+const getRegoData = (payment) => {
+  let items = payment.transactions[0].item_list.items;
+  if (items.length != 2) {
+    return null;
+  }
+
+  items = _.reject(items, (item) => {
+    return (item.sku == 'fee');
+  });
+
+  let item = items[0];
+  const [eventId, personId] = item.sku.split('-');
+
+  return fetchObjects(eventId, personId);
+};
+
 
 Meteor.methods({
   'paypal.createPayment'(eventId, personId) {
@@ -78,11 +95,11 @@ Meteor.methods({
       data: payment
     };
 
-    Payments.schema.clean(paymentDoc);
-    Payments.schema.validate(paymentDoc);
-
     const rawPayments = Payments.rawCollection();
     const syncInsert = Meteor.wrapAsync(rawPayments.insert, rawPayments);
+
+    Payments.schema.clean(paymentDoc);
+    Payments.schema.validate(paymentDoc);
     syncInsert(paymentDoc);
 
     return payment.id;
@@ -93,20 +110,9 @@ Meteor.methods({
     if (paymentDoc.status != 'created') {
       return;
     }
-    const payment = paymentDoc.data;
+    let payment = paymentDoc.data;
 
-    let items = payment.transactions[0].item_list.items;
-    if (items.length != 2) {
-      return null;
-    }
-
-    items = _.reject(items, (item) => {
-      return (item.sku == 'fee');
-    });
-
-    let item = items[0];
-    const [eventId, personId] = item.sku.split('-');
-    const { event, person } = fetchObjects(eventId, personId);
+    const { event, person } = getRegoData(payment);
     let rego = {
       eventId: event._id,
       personId: person._id,
@@ -127,8 +133,24 @@ Meteor.methods({
     const request = new paypal.PaymentExecuteRequest(paymentId);
     request.requestBody({payer_id: payerId});
     const response = Promise.await(client.execute(request));
+    payment = response.result;
 
-    console.log(response);
-    console.log(response.result);
+    if (payment.state == 'approved') {
+      Regos.update(regoId, {
+        $set: {status: 'completed'}
+      });
+
+      Payments.update(paymentDoc.id, {
+        $set: {status: 'completed'}
+      });
+    } else if (payment.state == 'failed') {
+      Regos.remove(regoId);
+
+      Payments.update(paymentDoc.id, {
+        $set: {status: 'failed'}
+      });
+    } else {
+      // =/
+    }
   },
 });

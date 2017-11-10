@@ -11,6 +11,9 @@ template(name="eventPay")
   div(class=pendingClass)
     | payment pending
 
+  div(class=paymentCompletedClass)
+    | payment completed!
+
   div(class=paypalButtonClass)
     small (safety third; as usual, please make sure the address bar has 'PayPal, Inc' in green before entering in any PayPal information)
     #paypal-button

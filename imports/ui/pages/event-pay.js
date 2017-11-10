@@ -22,7 +22,7 @@ Template.eventPay.onCreated(function helloOnCreated() {
     const person = fetchPerson();
 
     if (person && event) {
-      this.subscribe('authorizedPaymentItems', event._id, person._id);
+      this.subscribe('singleRego', event._id, person._id);
     }
   });
 });
@@ -108,7 +108,18 @@ Template.eventPay.helpers({
   },
 
   pendingClass() {
-    if (fetchAuthorizedPaymentItem()) {
+    const rego = fetchRego();
+    console.log(rego);
+    if (rego && (rego.status == 'in_progress')) {
+      return '';
+    } else {
+      return 'd-none';
+    }
+  },
+
+  paymentCompletedClass() {
+    const rego = fetchRego();
+    if (rego && (rego.status == 'completed')) {
       return '';
     } else {
       return 'd-none';
@@ -116,7 +127,7 @@ Template.eventPay.helpers({
   },
 
   paypalButtonClass() {
-    if (fetchAuthorizedPaymentItem()) {
+    if (fetchRego()) {
       return 'd-none';
     } else {
       return '';

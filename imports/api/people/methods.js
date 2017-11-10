@@ -19,7 +19,10 @@ const formatPhoneNumber = (phoneNumber) => {
 
 Meteor.methods({
   'people.insert'(name, phoneNumber) {
-    const phoneNumbers = formatPhoneNumber(phoneNumber);
+    let phoneNumbers = {}
+    if (phoneNumber) {
+      phoneNumbers = formatPhoneNumber(phoneNumber);
+    }
 
     const friendlyUrl = require('friendly-url');
     const friendlyId = friendlyUrl(name);

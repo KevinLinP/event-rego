@@ -5,7 +5,6 @@ template(name="people")
   table.table
     tr
       th name
-      th phone number
       th
     each people
       +personRow
@@ -13,9 +12,18 @@ template(name="people")
 template(name="personRow")
   tr(data-friendly-id=friendlyId)
     td #{name}
-    td(data-e164-phone-number=e164PhoneNumber) #{nationalPhoneNumber}
     td
-      a(href=payPath) Pay
+      span.mr-md-2
+        button(class=sendLinkClasses)
+          i.fa.fa-share
+          i.fa.fa-mobile
+      span.mr-md-2
+        a(href=payPath class='paypal-pay-button')
+          i.fa.fa-paypal
+      span.mr-md-2
+        button(class='cash-paid-button')
+          i.fa.fa-money
+          i.fa.fa-check
 
 template(name="personForm")
   form.person-form
@@ -23,6 +31,6 @@ template(name="personForm")
       input(type='text' name='name' placeholder='name' required='true')
 
     .mr-1
-      input(type='tel' name='phoneNumber' placeholder='phone number' required='true')
+      input(type='tel' name='phoneNumber' placeholder='phone (optional)')
 
     button(type="submit" class="btn btn-primary") add

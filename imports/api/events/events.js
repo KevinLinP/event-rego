@@ -8,7 +8,9 @@ Events.schema = new SimpleSchema({
   name: {type: String},
   friendlyId: {type: String},
   cashAmount: {type: Number, decimal: true},
-  createdAt: {type: Date}
+  createdAt: {type: Date, autoValue: () => {
+    return new Date();
+  }}
 });
 
 Events.helpers({

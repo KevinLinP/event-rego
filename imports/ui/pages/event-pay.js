@@ -1,7 +1,31 @@
-import './event-pay.jade';
 import { Events } from '../../api/events/events.js';
 import { People } from '../../api/people/people.js';
 import { Regos } from '../../api/regos/regos.js';
+
+import './event-pay.jade';
+
+const fetchEvent = () => {
+  const friendlyId = FlowRouter.getParam('eventFriendlyId');
+  const event = Events.findOne({friendlyId: friendlyId});
+  return event;
+};
+
+const fetchPerson = () => {
+  const friendlyId = FlowRouter.getQueryParam('person');
+  const person = People.findOne({friendlyId: friendlyId});
+  return person;
+};
+
+fetchRego = () => {
+  const event = fetchEvent();
+  const person = fetchPerson();
+
+  if (!event || !person) {
+    return null;
+  }
+
+  return Regos.findOne({eventId: event._id, personId: person._id});
+}
 
 Template.eventPay.onCreated(function helloOnCreated() {
   this.getEventFriendlyId = () => {
@@ -46,7 +70,7 @@ const attachPaypal = (event, person) => {
       return id;
     },
     onAuthorize: function(data) {
-      const response = applyWithPromise('paypal.authorizePayment', [data.paymentID, data.payerID]);
+      Meteor.call('paypal.authorizePayment', data.paymentID, data.payerID);
     }
   }, '#paypal-button');
 };
@@ -74,29 +98,6 @@ Template.eventPay.onRendered(function() {
     }
   });
 });
-
-const fetchEvent = () => {
-  const friendlyId = FlowRouter.getParam('eventFriendlyId');
-  const event = Events.findOne({friendlyId: friendlyId});
-  return event;
-};
-
-const fetchPerson = () => {
-  const friendlyId = FlowRouter.getQueryParam('person');
-  const person = People.findOne({friendlyId: friendlyId});
-  return person;
-};
-
-fetchRego = () => {
-  const event = fetchEvent();
-  const person = fetchPerson();
-
-  if (!event || !person) {
-    return null;
-  }
-
-  return Regos.findOne({eventId: event._id, personId: person._id});
-}
 
 Template.eventPay.helpers({
   event() {

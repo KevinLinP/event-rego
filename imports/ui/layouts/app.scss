@@ -12,3 +12,27 @@
   @extend .btn;
   @extend .btn-danger;
 }
+
+.paypal-pay-button {
+  @extend .btn;
+  @extend .btn-primary;
+  border-color: #009cde;
+  background-color: #009cde;
+
+  &:hover {
+    background-color: #003087;
+    border-color: #003087;
+  }
+}
+
+.cash-paid-button {
+  @extend .btn;
+  @extend .btn-success;
+  background-color: #218838;
+  border-color: #218838;
+
+  &:hover {
+    background-color: darken(#218838, 10%);
+    border-color: darken(#218838, 10%);
+  }
+}

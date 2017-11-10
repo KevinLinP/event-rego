@@ -4,7 +4,7 @@ import { check } from 'meteor/check';
 
 import { Events } from '../events/events.js';
 import { People } from '../people/people.js';
-import { AuthorizedPayments } from '../authorized-payments/authorized-payments.js';
+import { Payments } from '../payments/payments.js';
 import { AuthorizedPaymentItems } from '../authorized-payment-items/authorized-payment-items.js';
 
 const paypalClient = (paypal) => {
@@ -71,21 +71,29 @@ Meteor.methods({
     request.requestBody(paymentObj(event, person));
 
     const response = Promise.await(client.execute(request));
+    const payment = response.result;
 
-    return response.result.id;
+    const paymentDoc = {
+      paymentId: payment.id,
+      data: payment
+    };
+
+    Payments.schema.clean(paymentDoc);
+    Payments.schema.validate(paymentDoc);
+
+    const rawPayments = Payments.rawCollection();
+    const syncInsert = Meteor.wrapAsync(rawPayments.insert, rawPayments);
+    syncInsert(paymentDoc);
+
+    return payment.id;
   },
 
   'paypal.authorizePayment'(paymentId, payerId) {
-    const paypal = require('paypal-rest-sdk');
-    const client = paypalClient(paypal);
-
-    const getRequest = new paypal.PaymentGetRequest(paymentId);
-    const getResponse = Promise.await(client.execute(getRequest));
-    const payment = getResponse.result;
-
-    if (payment.state != 'created') {
-      return null;
+    const paymentDoc = Payments.findOne({paymentId: paymentId});
+    if (paymentDoc.status != 'created') {
+      return;
     }
+    const payment = paymentDoc.data;
 
     let items = payment.transactions[0].item_list.items;
     if (items.length != 2) {
@@ -113,11 +121,14 @@ Meteor.methods({
       return null;
     }
 
-    const executeRequest = new paypal.PaymentExecuteRequest(paymentId);
-    executeRequest.requestBody({payer_id: payerId});
-    const executeResponse = Promise.await(client.execute(executeRequest));
+    const paypal = require('paypal-rest-sdk');
+    const client = paypalClient(paypal);
 
-    console.log(executeResponse);
-    console.log(executeResponse.result);
+    const request = new paypal.PaymentExecuteRequest(paymentId);
+    request.requestBody({payer_id: payerId});
+    const response = Promise.await(client.execute(request));
+
+    console.log(response);
+    console.log(response.result);
   },
 });

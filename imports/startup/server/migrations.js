@@ -2,7 +2,7 @@ import { Migrations } from 'meteor/percolate:migrations';
 
 import { Events } from '../../api/events/events.js';
 import { People } from '../../api/people/people.js';
-import { AuthorizedPayments } from '../../api/authorized-payments/authorized-payments.js';
+import { Payments } from '../../api/payments/payments.js';
 import { AuthorizedPaymentItems } from '../../api/authorized-payment-items/authorized-payment-items.js';
 
 Migrations.add({
@@ -18,7 +18,7 @@ Migrations.add({
   version: 2,
   name: '',
   up: () => {
-    AuthorizedPayments.rawCollection().createIndex({paymentId: 1}, {unique: true});
+    Payments.rawCollection().createIndex({paymentId: 1}, {unique: true});
     AuthorizedPaymentItems.rawCollection().createIndex({eventId: 1, personId: 1}, {unique: true});
   }
 });

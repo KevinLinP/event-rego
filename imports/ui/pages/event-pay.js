@@ -1,6 +1,7 @@
 import './event-pay.jade';
 import { Events } from '../../api/events/events.js';
 import { People } from '../../api/people/people.js';
+import { AuthorizedPaymentItems } from '../../api/authorized-payment-items/authorized-payment-items.js';
 
 Template.eventPay.onCreated(function helloOnCreated() {
   this.getEventFriendlyId = () => {
@@ -13,16 +14,22 @@ Template.eventPay.onCreated(function helloOnCreated() {
 
   this.autorun(() => {
     this.subscribe('event', this.getEventFriendlyId());
+    this.subscribe('person', this.getPersonFriendlyId());
   });
 
   this.autorun(() => {
-    this.subscribe('person', this.getPersonFriendlyId());
+    const event = fetchEvent();
+    const person = fetchPerson();
+
+    if (person && event) {
+      this.subscribe('authorizedPaymentItems', event._id, person._id);
+    }
   });
 });
 
 const applyWithPromise = (method, args) => {
   return new Promise((resolve, reject) => {
-    Meteor.call(method, args, (error, result) => {
+    Meteor.apply(method, args, (error, result) => {
       if (error) reject(error);
       resolve(result);
     });
@@ -35,29 +42,19 @@ const attachPaypal = (event, person) => {
     env: 'sandbox', // Or 'sandbox'
     commit: true, // Show a 'Pay Now' button
     payment: function() {
-      const id = applyWithPromise('paypal.createPayment', event._id, person._id);
+      const id = applyWithPromise('paypal.createPayment', [event._id, person._id]);
       return id;
     },
     onAuthorize: function(data) {
-      Meteor.call('paypal.authorizePayment', data.paymentID, data.payerID);
-      //const id = applyWithPromise('paypal.createPayment', event._id, person._id);
-      //return paypal.request.post(EXECUTE_PAYMENT_URL, {
-      //paymentID: data.paymentID,
-      //payerID:   data.payerID
-      //}).then(function() {
-      //// change state here
-      //});
+      const response = applyWithPromise('paypal.authorizePayment', [data.paymentID, data.payerID]);
     }
   }, '#paypal-button');
 };
 
 Template.eventPay.onRendered(function() {
   this.autorun(() => {
-    const eventFriendlyId = FlowRouter.getParam('eventFriendlyId');
-    const event = Events.findOne({friendlyId: eventFriendlyId});
-
-    const personFriendlyId = FlowRouter.getQueryParam('person');
-    const person = People.findOne({friendlyId: personFriendlyId});
+    const event = fetchEvent();
+    const person = fetchPerson();
 
     if (!event || !person) {
       return;
@@ -78,16 +75,51 @@ Template.eventPay.onRendered(function() {
   });
 });
 
+const fetchEvent = () => {
+  const friendlyId = FlowRouter.getParam('eventFriendlyId');
+  const event = Events.findOne({friendlyId: friendlyId});
+  return event;
+};
+
+const fetchPerson = () => {
+  const friendlyId = FlowRouter.getQueryParam('person');
+  const person = People.findOne({friendlyId: friendlyId});
+  return person;
+};
+
+fetchAuthorizedPaymentItem = () => {
+  const event = fetchEvent();
+  const person = fetchPerson();
+
+  if (!event || !person) {
+    return null;
+  }
+
+  return AuthorizedPaymentItems.findOne({eventId: event._id, personId: person._id});
+}
+
 Template.eventPay.helpers({
   event() {
-    const friendlyId = FlowRouter.getParam('eventFriendlyId');
-    const event = Events.findOne({friendlyId: friendlyId});
-    return event;
+    return fetchEvent();
   },
 
   person() {
-    const friendlyId = FlowRouter.getQueryParam('person');
-    const person = People.findOne({friendlyId: friendlyId});
-    return person;
+    return fetchPerson();
   },
+
+  pendingClass() {
+    if (fetchAuthorizedPaymentItem()) {
+      return '';
+    } else {
+      return 'd-none';
+    }
+  },
+
+  paypalButtonClass() {
+    if (fetchAuthorizedPaymentItem()) {
+      return 'd-none';
+    } else {
+      return '';
+    }
+  }
 });

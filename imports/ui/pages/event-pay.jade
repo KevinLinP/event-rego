@@ -8,8 +8,11 @@ template(name="eventPay")
     with event
       | $#{cashAmount} + $#{paypalFee} for #{name}
 
-  
-  small (safety third; after clicking the button, please make sure the address bar has 'PayPal, Inc' in green before entering in any PayPal information)
-  #paypal-button
+  div(class=pendingClass)
+    | payment pending
+
+  div(class=paypalButtonClass)
+    small (safety third; as usual, please make sure the address bar has 'PayPal, Inc' in green before entering in any PayPal information)
+    #paypal-button
 
   script(src="https://www.paypalobjects.com/api/checkout.js")

@@ -10,4 +10,7 @@ import '../../api/people/people.js';
 import '../../api/people/methods.js';
 import '../../api/people/server/publications.js';
 
+import '../../api/authorized-payment-items/authorized-payment-items.js';
+import '../../api/authorized-payment-items/server/publications.js';
+
 import '../../api/paypal/methods.js';

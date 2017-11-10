@@ -17,7 +17,7 @@ Events.helpers({
     cents = (cents * 0.029) + 30;
     cents = Math.ceil(cents);
 
-    return (cents / 100).toFixed(2);
+    return (cents / 100);
   },
 
   paypalTotal() {

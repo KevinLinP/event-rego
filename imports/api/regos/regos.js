@@ -1,13 +1,13 @@
 import { Mongo } from 'meteor/mongo';
 
-export const AuthorizedPayments = new Mongo.Collection('authorizedPayments');
+export const Regos = new Mongo.Collection('regos');
 
-AuthorizedPayments.schema = new SimpleSchema({
+Regos.schema = new SimpleSchema({
   status: {type: String, defaultValue: 'pending', allowedValues: ['pending', 'completed']},
+  eventId: {type: String},
+  personId: {type: String},
   paymentId: {type: String},
-  payerId: {type: String},
-  amount: {type: Number},
   createdAt: {type: Date, autoValue: () => {
-    return Date.new();
+    return new Date();
   }}
 });

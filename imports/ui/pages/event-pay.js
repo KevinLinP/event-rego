@@ -1,7 +1,7 @@
 import './event-pay.jade';
 import { Events } from '../../api/events/events.js';
 import { People } from '../../api/people/people.js';
-import { AuthorizedPaymentItems } from '../../api/authorized-payment-items/authorized-payment-items.js';
+import { Regos } from '../../api/regos/regos.js';
 
 Template.eventPay.onCreated(function helloOnCreated() {
   this.getEventFriendlyId = () => {
@@ -87,7 +87,7 @@ const fetchPerson = () => {
   return person;
 };
 
-fetchAuthorizedPaymentItem = () => {
+fetchRego = () => {
   const event = fetchEvent();
   const person = fetchPerson();
 
@@ -95,7 +95,7 @@ fetchAuthorizedPaymentItem = () => {
     return null;
   }
 
-  return AuthorizedPaymentItems.findOne({eventId: event._id, personId: person._id});
+  return Regos.findOne({eventId: event._id, personId: person._id});
 }
 
 Template.eventPay.helpers({

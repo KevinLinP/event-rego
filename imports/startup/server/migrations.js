@@ -3,7 +3,7 @@ import { Migrations } from 'meteor/percolate:migrations';
 import { Events } from '../../api/events/events.js';
 import { People } from '../../api/people/people.js';
 import { Payments } from '../../api/payments/payments.js';
-import { AuthorizedPaymentItems } from '../../api/authorized-payment-items/authorized-payment-items.js';
+import { Regos } from '../../api/regos/regos.js';
 
 Migrations.add({
   version: 1,
@@ -19,7 +19,7 @@ Migrations.add({
   name: '',
   up: () => {
     Payments.rawCollection().createIndex({paymentId: 1}, {unique: true});
-    AuthorizedPaymentItems.rawCollection().createIndex({eventId: 1, personId: 1}, {unique: true});
+    Regos.rawCollection().createIndex({eventId: 1, personId: 1}, {unique: true});
   }
 });
 

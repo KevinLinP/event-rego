@@ -5,7 +5,7 @@ import { check } from 'meteor/check';
 import { Events } from '../events/events.js';
 import { People } from '../people/people.js';
 import { Payments } from '../payments/payments.js';
-import { AuthorizedPaymentItems } from '../authorized-payment-items/authorized-payment-items.js';
+import { Regos } from '../regos/regos.js';
 
 const paypalClient = (paypal) => {
   let env = new paypal.SandboxEnvironment(process.env.PAYPAL_CLIENT_ID, process.env.PAYPAL_CLIENT_SECRET);
@@ -107,17 +107,17 @@ Meteor.methods({
     let item = items[0];
     const [eventId, personId] = item.sku.split('-');
     const { event, person } = fetchObjects(eventId, personId);
-    let authorizedPaymentItem = {
+    let rego = {
       eventId: event._id,
       personId: person._id,
       paymentId: paymentId
     }
 
-    AuthorizedPaymentItems.schema.clean(authorizedPaymentItem);
-    AuthorizedPaymentItems.schema.validate(authorizedPaymentItem);
-    const authorizedPaymentId = AuthorizedPaymentItems.insert(authorizedPaymentItem); // atomicity guaranteed here
+    Regos.schema.clean(rego);
+    Regos.schema.validate(rego);
+    const regoId = Regos.insert(rego); // atomicity guaranteed here
 
-    if (!authorizedPaymentId) {
+    if (!regoId) {
       return null;
     }
 

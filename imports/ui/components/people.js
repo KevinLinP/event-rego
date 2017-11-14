@@ -2,47 +2,36 @@ import './people.jade';
 import { People } from '../../api/people/people.js';
 import { Regos } from '../../api/regos/regos.js';
 
+import './people-table.js';
+
 Template.people.onCreated(function() {
   Meteor.subscribe('people');
 });
 
 Template.people.helpers({
-  people() {
-    return People.find({});
-  },
+  filterLetter() {
+    return FlowRouter.getQueryParam('filter');
+  }
 });
 
-Template.peopleGrid.helpers({
+Template.filterButtons.helpers({
   letters() {
+    const eventFriendlyId = FlowRouter.getParam('eventFriendlyId');
     let letters = [];
 
     let i;
     for (n = 0; n < 26; n++) {
-      letters.push(String.fromCharCode(65 + n));
+      const letter = String.fromCharCode(97+ n);
+      const active = !!People.findOne({name: {$regex: `^${letter}`, $options: 'i'}});
+
+      letters.push({
+        display: letter.toUpperCase(),
+        href: `/${eventFriendlyId}?filter=${letter}`,
+        active
+      });
     }
     
     return letters;
-  }
-});
-
-Template.personRow.helpers({
-  paid() {
-    const eventId = Template.parentData(1).event._id;
-    const personId = this._id;
-    const rego = Regos.findOne({eventId, personId});
-
-    if (rego && rego.completed()) {
-      return true;
-    } else {
-      return false;
-    }
-  },
-
-  payPath(event) {
-    const eventId = Template.parentData(1).event.friendlyId;
-    const personId = Template.currentData().friendlyId;
-
-    return `/${eventId}/pay?person=${personId}`;
   }
 });
 

@@ -1,53 +1,29 @@
 template(name="people")
-  if currentUser
-    .mb-4
-      .h5 New hasher
-      +personForm
-
-  if currentUser
-    +peopleGrid
-
+  if filterLetter
+    +peopleTable
   else
-    table.table.people-table
-      tr
-        th name
-        th
-      each people
-        +personRow
+    if currentUser
+      .mb-4
+        .h5 New hasher
+        +personForm
 
-template(name="peopleGrid")
+    +filterButtons
+
+template(name="filterButtons")
   .row
     each letters
       .col-3.mb-4
-        a.person-letter(href="asdf") #{this}
-
-template(name="personRow")
-  tr(data-friendly-id=friendlyId class=rowClass)
-    td
-      .h5
-        | #{name}
-    td
-      if paid
-        | Paid
-      else
-        //-span.mr-md-2
-          //-button(class=sendLinkClasses)
-            //-i.fa.fa-share
-            //-i.fa.fa-mobile
-        if currentUser
-          span.mr-md-2
-            button(class='cash-paid-button')
-              i.fa.fa-money
-              i.fa.fa-check
-        else 
-          span.mr-md-2
-            a(href=payPath class='paypal-pay-button')
-              i.fa.fa-paypal
+        if active
+          a.person-letter(href=href)
+            div #{display}
+        else
+          a.person-letter(disabled='disabled')
+            div #{display}
 
 template(name="personForm")
   form.person-form
     .mr-1
-      input(type='text' name='name' placeholder='name' required='true')
+      input.form-control(type='text' name='name' placeholder='name' required='true')
 
     //-.mr-1
       //-input(type='tel' name='phoneNumber' placeholder='phone (optional)')

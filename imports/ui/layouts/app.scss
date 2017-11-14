@@ -45,9 +45,25 @@
 
 .person-letter {
   @extend .btn;
-  @extend .btn-outline-primary;
-  width: 20vw;
-  height: 20vw;
+  @extend .btn-outline-secondary;
+  width: 18vw;
+  height: 18vw;
 
-  font-size: 4rem;
+  color: #666;
+  border-color: #666;
+
+  @extend .d-flex;
+  @extend .flex-column;
+  @extend .justify-content-center;
+
+  font-weight: 300;
+
+  font-size: 2.5rem;
+
+  padding-top: 0.2rem;
+
+  &[disabled] {
+    @extend .disabled;
+    color: #CCCCCC !important;
+  }
 }

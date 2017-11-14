@@ -1,0 +1,33 @@
+template(name="peopleTable")
+  if filterLetter
+    .h1 #{filterLetter}
+
+  table.table.people-table
+    tr
+      th name
+      th
+    each people
+      +personRow
+
+template(name="personRow")
+  tr(data-friendly-id=friendlyId class=rowClass)
+    td
+      .h5
+        | #{name}
+    td
+      if paid
+        | Paid
+      else
+        //-span.mr-md-2
+          //-button(class=sendLinkClasses)
+            //-i.fa.fa-share
+            //-i.fa.fa-mobile
+        if currentUser
+          span.mr-md-2
+            button(class='cash-paid-button')
+              i.fa.fa-money
+              i.fa.fa-check
+        else 
+          span.mr-md-2
+            a(href=payPath class='paypal-pay-button')
+              i.fa.fa-paypal

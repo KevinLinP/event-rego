@@ -30,18 +30,6 @@ Template.personRow.helpers({
     const personId = Template.currentData().friendlyId;
 
     return `/${eventId}/pay?person=${personId}`;
-  },
-
-  sendLinkClasses() {
-    const classes = 'btn disabled js-send-link';
-
-    if (this.e164PhoneNumber) {
-      classes += ' btn-outline-secondary';
-    } else {
-      classes += ' btn-outline-secondary';
-    }
-
-    return classes;
   }
 });
 

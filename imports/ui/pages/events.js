@@ -3,13 +3,6 @@ import { Events } from '../../api/events/events.js';
 
 Template.events.onCreated(function helloOnCreated() {
   Meteor.subscribe('events');
-
-  this.createEvent = () => {
-    const name = this.$('[name=name]').val().trim();
-    const cashAmount = Number.parseFloat(this.$('[name=cashAmount]').val());
-
-    Meteor.call('events.insert', name, cashAmount);
-  };
 });
 
 Template.events.helpers({
@@ -18,7 +11,16 @@ Template.events.helpers({
   }
 });
 
-Template.events.events({
+Template.eventForm.onCreated(function() {
+  this.createEvent = () => {
+    const name = this.$('[name=name]').val().trim();
+    const cashAmount = Number.parseFloat(this.$('[name=cashAmount]').val());
+
+    Meteor.call('events.insert', name, cashAmount);
+  };
+});
+
+Template.eventForm.helpers({
   'submit .js-new-event-form'(event, instance) {
     event.preventDefault();
     instance.createEvent();

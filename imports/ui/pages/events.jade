@@ -1,35 +1,42 @@
 template(name="events")
+  .pull-right
+    {{> loginButtons align="right"}}
+
+  if currentUser
+    +eventForm
+
+  .mt-5
+    .mb-2
+      h1.h3 Events
+
+    table.table
+      tr
+        th name
+        if currentUser
+          th
+      each events
+        +eventRow
+
+template(name="eventForm")
   .mb-2
-    h1.h4 New Event
+    h1.h5 New Event
 
-  .mb-5
-    form.event-form.js-new-event-form
-      .mr-1
-        input(type='text' name='name' placeholder='name')
+  form.event-form.js-new-event-form
+    .mr-1
+      input(type='text' name='name' placeholder='name')
 
-      .input-group.mr-1
-        .input-group-addon $
-        input(type='number' name='cashAmount' placeholder='cash amount' step="1.00")
+    .input-group.mr-1
+      .input-group-addon $
+      input(type='number' name='cashAmount' placeholder='cash amount' step="1.00")
 
-      button(type="submit" class="btn btn-primary") create
+    button(type="submit" class="btn btn-primary") create
 
-  .mb-2
-    h1.h3 Events
-
-  table.table
-    tr
-      th name
-      th hash cash
-      th
-    each events
-      +eventRow
 
 template(name="eventRow")
   tr(data-friendly-id=friendlyId)
     td
       a(href=url)= name
-
-    td= cashAmount
-    td
-      button(data-id=_id class='event-delete-button js-delete-event-button')
-        i.fa.fa-trash
+    if currentUser
+      td
+        button(data-id=_id class='event-delete-button js-delete-event-button')
+          i.fa.fa-trash

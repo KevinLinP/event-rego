@@ -1,6 +1,8 @@
 template(name="people")
-  .mb-5
-    +personForm
+  if currentUser
+    .mb-4
+      .h5 New hasher
+      +personForm
 
   table.table
     tr
@@ -11,29 +13,33 @@ template(name="people")
 
 template(name="personRow")
   tr(data-friendly-id=friendlyId class=rowClass)
-    td #{name}
+    td
+      .h5
+        | #{name}
     td
       if paid
         | Paid
       else
-        span.mr-md-2
-          button(class=sendLinkClasses)
-            i.fa.fa-share
-            i.fa.fa-mobile
-        span.mr-md-2
-          a(href=payPath class='paypal-pay-button')
-            i.fa.fa-paypal
-        span.mr-md-2
-          button(class='cash-paid-button')
-            i.fa.fa-money
-            i.fa.fa-check
+        //-span.mr-md-2
+          //-button(class=sendLinkClasses)
+            //-i.fa.fa-share
+            //-i.fa.fa-mobile
+        if currentUser
+          span.mr-md-2
+            button(class='cash-paid-button')
+              i.fa.fa-money
+              i.fa.fa-check
+        else 
+          span.mr-md-2
+            a(href=payPath class='paypal-pay-button')
+              i.fa.fa-paypal
 
 template(name="personForm")
   form.person-form
     .mr-1
       input(type='text' name='name' placeholder='name' required='true')
 
-    .mr-1
-      input(type='tel' name='phoneNumber' placeholder='phone (optional)')
+    //-.mr-1
+      //-input(type='tel' name='phoneNumber' placeholder='phone (optional)')
 
     button(type="submit" class="btn btn-primary") add

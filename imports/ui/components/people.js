@@ -9,6 +9,19 @@ Template.people.onCreated(function() {
 Template.people.helpers({
   people() {
     return People.find({});
+  },
+});
+
+Template.peopleGrid.helpers({
+  letters() {
+    let letters = [];
+
+    let i;
+    for (n = 0; n < 26; n++) {
+      letters.push(String.fromCharCode(65 + n));
+    }
+    
+    return letters;
   }
 });
 

@@ -4,12 +4,22 @@ template(name="people")
       .h5 New hasher
       +personForm
 
-  table.table.people-table
-    tr
-      th name
-      th
-    each people
-      +personRow
+  if currentUser
+    +peopleGrid
+
+  else
+    table.table.people-table
+      tr
+        th name
+        th
+      each people
+        +personRow
+
+template(name="peopleGrid")
+  .row
+    each letters
+      .col-3.mb-4
+        a.person-letter(href="asdf") #{this}
 
 template(name="personRow")
   tr(data-friendly-id=friendlyId class=rowClass)

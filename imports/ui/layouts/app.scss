@@ -42,3 +42,12 @@
     vertical-align: middle;
   }
 }
+
+.person-letter {
+  @extend .btn;
+  @extend .btn-outline-primary;
+  width: 20vw;
+  height: 20vw;
+
+  font-size: 4rem;
+}

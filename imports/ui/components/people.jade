@@ -12,12 +12,12 @@ template(name="people")
 template(name="filterButtons")
   .row
     each letters
-      .col-3.mb-4
+      .filter-button-div
         if active
-          a.person-letter(href=href)
+          a.filter-button(href=href)
             div #{display}
         else
-          a.person-letter(disabled='disabled')
+          a.filter-button(disabled='disabled')
             div #{display}
 
 template(name="personForm")

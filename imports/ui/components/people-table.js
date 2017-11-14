@@ -13,8 +13,10 @@ Template.peopleTable.helpers({
 
     return People.find(query);
   },
+
   filterLetter() {
-    return FlowRouter.getQueryParam('filter');
+    const filter = FlowRouter.getQueryParam('filter')
+    return filter.toUpperCase();
   }
 });
 

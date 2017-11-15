@@ -36,7 +36,7 @@
 .pay-cash-button {
   @extend .btn;
   @extend .btn-success;
-  @extend .btn-sm;
+  //@extend .btn-sm;
   background-color: #218838;
   border-color: #218838;
 
@@ -47,16 +47,25 @@
 }
 
 .people-list {
-  @extend .list-unstyled;
+  @extend .table;
+
+  td {
+    vertical-align: middle;
+    border-top: none;
+    padding: 0 0 0.8rem 0;
+  }
 }
 
-.person-list-item {
-  @extend .d-flex;
-  @extend .justify-content-between;
-  @extend .align-items-center;
-  @extend .mb-2;
+.people-list-back {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .btn-outline-primary;
+  //margin-bottom: 3px;
+  //padding: 0;
 
-  width: 100%;
+  .fa {
+    font-size: 80%;
+  }
 }
 
 .person-list-item-name {
@@ -64,6 +73,14 @@
 }
 
 .person-list-item-buttons {
+  @extend .text-center;
+  width: 1%;
+  white-space: nowrap;
+}
+
+.cash-paid-icon {
+  color: $green;
+  font-size: 140%;
 }
 
 .filter-button-div {

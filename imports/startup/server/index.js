@@ -11,6 +11,5 @@ import '../../api/people/methods.js';
 import '../../api/people/server/publications.js';
 
 import '../../api/regos/regos.js';
+import '../../api/regos/methods.js';
 import '../../api/regos/server/publications.js';
-
-import '../../api/paypal/methods.js';

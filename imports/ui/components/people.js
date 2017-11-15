@@ -34,18 +34,12 @@ Template.filterButtons.helpers({
   }
 });
 
-Template.personForm.onCreated(function() {
-  this.createPerson = () => {
-    const name = this.$('[name=name]').val().trim();
-    const phoneNumber = this.$('[name=phoneNumber]').val().trim();
-
-    Meteor.call('people.insert', name, phoneNumber);
-  };
-});
-
-Template.personForm.events({
-  'submit form'(event, instance) {
+Template.personForm.viewmodel({
+  name: '',
+  createPerson: function(event) {
     event.preventDefault();
-    instance.createPerson();
+    const name = this.name().trim();
+
+    Meteor.call('people.insert', name);
   }
 });

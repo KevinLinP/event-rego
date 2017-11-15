@@ -78,6 +78,22 @@ const getRegoData = (payment) => {
 
 
 Meteor.methods({
+  'regos.payWithCash'({eventId, personId}) {
+    check(eventId, String);
+    check(personId, String);
+
+    const { event, person } = fetchObjects(eventId, personId);
+    let rego = {
+      type: 'cash',
+      status: 'completed',
+      eventId: event._id,
+      personId: person._id,
+    }
+
+    Regos.schema.clean(rego);
+    Regos.schema.validate(rego);
+    Regos.insert(rego);
+  },
   'paypal.createPayment'(eventId, personId) {
     const { event, person } = fetchObjects(eventId, personId);
 
@@ -114,6 +130,7 @@ Meteor.methods({
 
     const { event, person } = getRegoData(payment);
     let rego = {
+      type: 'paypal',
       eventId: event._id,
       personId: person._id,
       paymentId: paymentId

@@ -22,10 +22,16 @@ Template.peopleList.viewmodel({
 });
 
 Template.personListItem.viewmodel({
+  event: function() {
+    return this.parent().event();
+  },
   paid: function() {
-    const eventId = this.parent().event()._id;
+    const eventId = this.event()._id;
     const personId = this._id();
-    const rego = Regos.findOne({eventId, personId});
+    const rego = Regos.findOne({
+      eventId,
+      personId
+    });
 
     return (rego && rego.completed());
   },
@@ -35,6 +41,12 @@ Template.personListItem.viewmodel({
     
     //return `/${eventId}/pay?person=${personId}`;
     return ``;
+  },
+  payWithCash: function() {
+    const eventId = this.event()._id;
+    const personId = this._id();
+
+    Meteor.call('regos.payWithCash', {eventId, personId});
   },
   payWithCashIcon: function() {
     return "💸";

@@ -7,8 +7,6 @@
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "bcrypt": "^1.0.3",
-    "bootstrap": "^4.0.0-beta.2",
-    "bootstrap-vue": "^1.0.2",
     "friendly-url": "^1.0.3",
     "google-libphonenumber": "^3.0.8",
     "jquery": "^3.2.1",

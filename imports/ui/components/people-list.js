@@ -36,11 +36,10 @@ Template.personListItem.viewmodel({
     return (rego && rego.completed());
   },
   payPath: function(event) {
-    //const eventId = Template.parentData(1).event.friendlyId;
-    //const personId = Template.currentData().friendlyId;
+    const eventId = this.event()._id;
+    const personId = this._id();
     
-    //return `/${eventId}/pay?person=${personId}`;
-    return ``;
+    return `/${eventId}/pay?person=${personId}`;
   },
   payWithCash: function() {
     const eventId = this.event()._id;

@@ -6,7 +6,9 @@ akryum:npm-check@0.0.4
 akryum:vue-component@0.12.2
 akryum:vue-component-dev-client@0.3.0
 akryum:vue-component-dev-server@0.0.11
+akryum:vue-pug@0.0.2
 akryum:vue-router2@0.1.1
+akryum:vue-sass@0.0.8
 aldeed:simple-schema@1.5.3
 allow-deny@1.1.0
 autoupdate@1.3.12

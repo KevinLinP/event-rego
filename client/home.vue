@@ -1,9 +1,6 @@
-<template>
-  <ul>
-    <li v-for="event in events">
-      {{ event.name }}
-    </li>
-  </ul>
+<template lang="pug">
+ul.list-unstyled
+  li(v-for="event in events") {{ event.name }}
 </template>
 
 <script>

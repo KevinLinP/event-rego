@@ -36,3 +36,5 @@ dalgard:jade
 vuejs:meteor-integration
 akryum:vue-component
 akryum:vue-router2
+akryum:vue-sass
+akryum:vue-pug

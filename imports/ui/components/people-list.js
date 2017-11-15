@@ -3,44 +3,40 @@ import { Regos } from '../../api/regos/regos.js';
 
 import './people-list.jade';
 
-Template.peopleList.helpers({
-  people() {
+Template.peopleList.viewmodel({
+  filterLetter: function() {
+    return FlowRouter.getQueryParam('filter');
+  },
+  people: function() {
     let query = {};
-    const filter = FlowRouter.getQueryParam('filter');
-    if (filter) {
-      query = {name: {$regex: `^${filter}`, $options: 'i'}};
+    let filterLetter = this.filterLetter();
+    if (filterLetter) {
+      query = {name: {$regex: `^${filterLetter}`, $options: 'i'}};
     }
 
     return People.find(query);
   },
-
-  filterLetter() {
-    const filter = FlowRouter.getQueryParam('filter')
-    return filter.toUpperCase();
+  filterLetterDisplay: function() {
+    return this.filterLetter().toUpperCase();
   },
 });
 
-Template.personListItem.helpers({
-  paid() {
+Template.personListItem.viewmodel({
+  paid: function() {
     const eventId = Template.parentData(1).event._id;
-    const personId = this._id;
+    const personId = this._id();
     const rego = Regos.findOne({eventId, personId});
 
-    if (rego && rego.completed()) {
-      return true;
-    } else {
-      return false;
-    }
+    return (rego && rego.completed());
   },
-
-  payPath(event) {
-    const eventId = Template.parentData(1).event.friendlyId;
-    const personId = Template.currentData().friendlyId;
-
-    return `/${eventId}/pay?person=${personId}`;
+  payPath: function(event) {
+    //const eventId = Template.parentData(1).event.friendlyId;
+    //const personId = Template.currentData().friendlyId;
+    
+    //return `/${eventId}/pay?person=${personId}`;
+    return ``;
   },
-
-  payWithCashIcon() {
+  payWithCashIcon: function() {
     return "💸";
   }
 });

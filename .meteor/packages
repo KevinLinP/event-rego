@@ -32,3 +32,4 @@ percolate:migrations
 aldeed:simple-schema
 accounts-password
 accounts-ui
+manuel:viewmodel

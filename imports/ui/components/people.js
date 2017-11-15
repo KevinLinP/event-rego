@@ -40,6 +40,8 @@ Template.personForm.viewmodel({
     event.preventDefault();
     const name = this.name().trim();
 
+    // TODO: navigate to filter page
+
     Meteor.call('people.insert', name);
   }
 });

@@ -21,8 +21,8 @@ template(name="filterButtons")
             div #{display}
 
 template(name="personForm")
-  form.person-form($dyn='{{b "submit: createPerson"}}')
+  form.person-form($b='submit: createPerson')
     .mr-1
-      input.form-control(type='text' name='name' placeholder='name' required='true' $dyn='{{b "value: name"}}')
+      input.form-control(type='text' name='name' placeholder='name' required='true' $b='value: name')
 
     button(type="submit" class="btn btn-primary") add

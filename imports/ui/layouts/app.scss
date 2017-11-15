@@ -25,15 +25,7 @@
   }
 }
 
-.cash-paid-button {
-  @extend .badge;
-  @extend .badge-success;
-  //badge badge-success
-  //@extend .btn;
-  //@extend .btn-outline-success;
-}
-
-.pay-cash-button {
+.pay-with-cash-button {
   @extend .btn;
   @extend .btn-success;
   @extend .btn-sm;
@@ -60,8 +52,6 @@
   @extend .btn;
   @extend .btn-sm;
   @extend .btn-outline-primary;
-  //margin-bottom: 3px;
-  //padding: 0;
 
   .fa {
     font-size: 90%;

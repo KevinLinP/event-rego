@@ -21,7 +21,7 @@ template(name="personListItem")
           i.fa.fa-check
       else
         if currentUser
-          button(click=payWithCash)= payWithCashIcon
+          button.pay-with-cash-button($b='click: payWithCash()')= payWithCashIcon
         else 
           a.paypal-pay-button(href=payPath)
             i.fa.fa-paypal

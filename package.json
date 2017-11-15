@@ -13,6 +13,13 @@
     "jquery": "^3.2.1",
     "meteor-node-stubs": "^0.3.2",
     "paypal-rest-sdk": "^2.0.0-beta.0",
-    "popper.js": "^1.12.6"
-  }
+    "popper.js": "^1.12.6",
+    "vue": "git://github.com/meteor-vue/vue.git#meteor",
+    "vue-meteor-tracker": "^1.2.3",
+    "vue-router": "^2.0.0"
+  },
+  "meteor": {
+    "vueVersion": 2
+  },
+  "devDependencies": {}
 }

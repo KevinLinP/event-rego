@@ -1,4 +1,20 @@
-// Client entry point, imports all client code
+import Vue from 'vue';
+import {RouterFactory, nativeScrollBehavior} from 'meteor/akryum:vue-router2';
+import VueMeteorTracker from 'vue-meteor-tracker';
 
-import '/imports/startup/client';
-import '/imports/startup/both';
+Meteor.startup(() => {
+  const router = new RouterFactory({
+    mode: 'history',
+    scrollBehavior: nativeScrollBehavior,
+  }).create();
+
+  Vue.use(VueMeteorTracker);
+
+  new Vue({
+    router,
+    el: '#app',
+    render: (createElement) => {
+      return createElement(Vue.component('layout'));
+    }
+  });
+});

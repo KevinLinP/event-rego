@@ -33,3 +33,6 @@ accounts-password
 accounts-ui
 manuel:viewmodel
 dalgard:jade
+vuejs:meteor-integration
+akryum:vue-component
+akryum:vue-router2

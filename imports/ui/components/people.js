@@ -4,12 +4,11 @@ import { Regos } from '../../api/regos/regos.js';
 
 import './people-list.js';
 
-Template.people.onCreated(function() {
-  Meteor.subscribe('people');
-});
-
-Template.people.helpers({
-  filterLetter() {
+Template.people.viewmodel({
+  onCreated: function() {
+    Meteor.subscribe('people');
+  },
+  filterLetter: function() {
     return FlowRouter.getQueryParam('filter');
   }
 });

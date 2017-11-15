@@ -23,7 +23,7 @@ Template.peopleList.viewmodel({
 
 Template.personListItem.viewmodel({
   paid: function() {
-    const eventId = Template.parentData(1).event._id;
+    const eventId = this.parent().event()._id;
     const personId = this._id();
     const rego = Regos.findOne({eventId, personId});
 

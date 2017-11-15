@@ -1,13 +1,13 @@
 template(name="people")
   if filterLetter
-    +peopleTable
+    +peopleList
   else
-    if currentUser
-      .mb-4
-        .h5 New hasher
-        +personForm
-
     +filterButtons
+
+  if currentUser
+    .mb-4
+      .h6 Add hasher
+      +personForm
 
 template(name="filterButtons")
   .row

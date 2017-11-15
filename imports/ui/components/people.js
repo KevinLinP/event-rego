@@ -2,7 +2,7 @@ import './people.jade';
 import { People } from '../../api/people/people.js';
 import { Regos } from '../../api/regos/regos.js';
 
-import './people-table.js';
+import './people-list.js';
 
 Template.people.onCreated(function() {
   Meteor.subscribe('people');

@@ -1,9 +1,9 @@
 import { People } from '../../api/people/people.js';
 import { Regos } from '../../api/regos/regos.js';
 
-import './people-table.jade';
+import './people-list.jade';
 
-Template.peopleTable.helpers({
+Template.peopleList.helpers({
   people() {
     let query = {};
     const filter = FlowRouter.getQueryParam('filter');
@@ -17,10 +17,10 @@ Template.peopleTable.helpers({
   filterLetter() {
     const filter = FlowRouter.getQueryParam('filter')
     return filter.toUpperCase();
-  }
+  },
 });
 
-Template.personRow.helpers({
+Template.personListItem.helpers({
   paid() {
     const eventId = Template.parentData(1).event._id;
     const personId = this._id;
@@ -38,5 +38,9 @@ Template.personRow.helpers({
     const personId = Template.currentData().friendlyId;
 
     return `/${eventId}/pay?person=${personId}`;
+  },
+
+  payWithCashIcon() {
+    return "💸";
   }
 });

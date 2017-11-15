@@ -1,0 +1,27 @@
+template(name="peopleList")
+  if filterLetter
+    .mb-3
+      .d-flex.justify-content-between.align-items-center.mb-2
+        .filter-letter-heading #{filterLetter}
+        div
+          button.btn.btn-outline-primary.btn-sm(onclick="javascript:history.back()") back
+
+  ul.people-list
+    each people
+      +personListItem
+
+template(name="personListItem")
+  li.person-list-item(data-friendly-id=friendlyId class=rowClass)
+    .person-list-item-name= name
+    .person-list-item-buttons
+      if paid
+        span.cash-paid-button
+          | Paid
+      else
+        if currentUser
+          span.mr-md-2
+            button(class='pay-cash-button')= payWithCashIcon
+        else 
+          span.mr-md-2
+            a(href=payPath class='paypal-pay-button')
+              i.fa.fa-paypal

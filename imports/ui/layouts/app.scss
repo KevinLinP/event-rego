@@ -26,8 +26,17 @@
 }
 
 .cash-paid-button {
+  @extend .badge;
+  @extend .badge-success;
+  //badge badge-success
+  //@extend .btn;
+  //@extend .btn-outline-success;
+}
+
+.pay-cash-button {
   @extend .btn;
   @extend .btn-success;
+  @extend .btn-sm;
   background-color: #218838;
   border-color: #218838;
 
@@ -37,10 +46,24 @@
   }
 }
 
-.people-table {
-  td {
-    vertical-align: middle;
-  }
+.people-list {
+  @extend .list-unstyled;
+}
+
+.person-list-item {
+  @extend .d-flex;
+  @extend .justify-content-between;
+  @extend .align-items-center;
+  @extend .mb-2;
+
+  width: 100%;
+}
+
+.person-list-item-name {
+  font-size: 125%;
+}
+
+.person-list-item-buttons {
 }
 
 .filter-button-div {

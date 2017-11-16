@@ -9,17 +9,6 @@ template(name="people")
       .h6 Add hasher
       +personForm
 
-template(name="filterButtons")
-  .row
-    each letters
-      .filter-button-div
-        if active
-          a.filter-button(href=href)
-            div #{display}
-        else
-          a.filter-button(disabled='disabled')
-            div #{display}
-
 template(name="personForm")
   form.person-form($b='submit: createPerson')
     .mr-1

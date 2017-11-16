@@ -1,6 +1,6 @@
-import './event-detail.jade';
 import { Events } from '../../api/events/events.js';
 
+import './event-detail.jade';
 import './people.js';
 
 const fetchEvent = () => {

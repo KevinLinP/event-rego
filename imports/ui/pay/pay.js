@@ -2,7 +2,7 @@ import { Events } from '../../api/events/events.js';
 import { People } from '../../api/people/people.js';
 import { Regos } from '../../api/regos/regos.js';
 
-import './event-pay.jade';
+import './pay.jade';
 
 const fetchEvent = () => {
   const friendlyId = FlowRouter.getParam('eventFriendlyId');
@@ -27,7 +27,7 @@ fetchRego = () => {
   return Regos.findOne({eventId: event._id, personId: person._id});
 }
 
-Template.eventPay.onCreated(function helloOnCreated() {
+Template.pay.onCreated(function helloOnCreated() {
   this.getEventFriendlyId = () => {
     return FlowRouter.getParam('eventFriendlyId');
   }
@@ -75,7 +75,7 @@ const attachPaypal = (event, person) => {
   }, '#paypal-button');
 };
 
-Template.eventPay.onRendered(function() {
+Template.pay.onRendered(function() {
   this.autorun(() => {
     const event = fetchEvent();
     const person = fetchPerson();
@@ -99,7 +99,7 @@ Template.eventPay.onRendered(function() {
   });
 });
 
-Template.eventPay.helpers({
+Template.pay.helpers({
   event() {
     return fetchEvent();
   },

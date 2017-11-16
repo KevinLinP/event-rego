@@ -1,29 +1,26 @@
 import './event-list.jade';
 import { Events } from '../../api/events/events.js';
 
-Template.eventList.onCreated(function helloOnCreated() {
-  Meteor.subscribe('events');
-});
-
-Template.eventList.helpers({
-  events() {
+Template.eventList.viewmodel({
+  autorun: function() {
+    Meteor.subscribe('events');
+  },
+  allEvents: function() {
     return Events.find({});
   }
 });
 
-Template.eventForm.onCreated(function() {
-  this.createEvent = () => {
-    const name = this.$('[name=name]').val().trim();
-    const cashAmount = Number.parseFloat(this.$('[name=cashAmount]').val());
-
-    Meteor.call('events.insert', name, cashAmount);
-  };
-});
-
-Template.eventForm.helpers({
-  'submit .js-new-event-form'(event, instance) {
+Template.eventForm.viewmodel({
+  createEvent: function(event) {
     event.preventDefault();
-    instance.createEvent();
+
+    alert('hi');
+
+    const name = this.name().trim();
+    const startsAt = this.startsAt().trim();
+    const cashAmount = Number.parseFloat(this.cashAmount());
+
+    Meteor.call('events.insert', {name, startsAt, cashAmount});
   }
 });
 

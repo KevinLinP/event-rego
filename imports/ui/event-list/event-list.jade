@@ -1,33 +1,32 @@
 template(name="eventList")
-  .pull-right
-    +loginButtons align="right"
+  .mb-5
+    .pull-right
+      +loginButtons align="right"
+
+  .mb-2
+    h1.h3 Events
+
+  table.table
+    each allEvents
+      +eventListItem
 
   if currentUser
     +eventForm
-
-  .mt-5
-    .mb-2
-      h1.h3 Events
-
-    table.table
-      tr
-        th name
-        if currentUser
-          th
-      each events
-        +eventListItem
 
 template(name="eventForm")
   .mb-2
     h1.h5 New Event
 
-  form.event-form.js-new-event-form
-    .mr-1
-      input(type='text' name='name' placeholder='name')
+  form.event-form($b='submit: createEvent')
+    .input-group
+      input(type='text' $b='value: name' placeholder='event name')
 
-    .input-group.mr-1
+    .input-group
+      input(type='text' $b='value: startsAt' placeholder='date and time')
+
+    .input-group
       .input-group-addon $
-      input(type='number' name='cashAmount' placeholder='cash amount' step="1.00")
+      input(type='number' $b='value: cashAmount' placeholder='hash cash' step="1.00")
 
     button(type="submit" class="btn btn-primary") create
 

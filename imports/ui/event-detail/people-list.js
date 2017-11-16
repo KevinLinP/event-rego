@@ -14,7 +14,7 @@ Template.peopleList.viewmodel({
       query = {name: {$regex: `^${filterLetter}`, $options: 'i'}};
     }
 
-    return People.find(query);
+    return People.find(query, {sort: {name: 1}});
   },
   filterLetterDisplay: function() {
     return this.filterLetter().toUpperCase();
@@ -25,7 +25,7 @@ Template.personListItem.viewmodel({
   event: function() {
     return this.parent().event();
   },
-  paid: function() {
+  rego: function() {
     const eventId = this.event()._id;
     const personId = this._id();
     const rego = Regos.findOne({
@@ -33,7 +33,15 @@ Template.personListItem.viewmodel({
       personId
     });
 
+    return rego;
+  },
+  paid: function() {
+    const rego = this.rego();
+
     return (rego && rego.completed());
+  },
+  paidWithCash() {
+    return this.rego().type == 'cash';
   },
   payPath: function(event) {
     const eventId = this.event().friendlyId;
@@ -47,7 +55,4 @@ Template.personListItem.viewmodel({
 
     Meteor.call('regos.payWithCash', {eventId, personId});
   },
-  payWithCashIcon: function() {
-    return "💸";
-  }
 });

@@ -1,6 +1,16 @@
 @import "{}/node_modules/bootstrap/scss/bootstrap.scss";
 
-.event-form, .person-form {
+.event-form {
+  .input-group {
+    @extend .mb-2;
+  }
+
+  input {
+    @extend .form-control;
+  }
+}
+
+.person-form {
   @extend .form-inline;
 
   input {
@@ -68,9 +78,15 @@
   white-space: nowrap;
 }
 
-.cash-paid-icon {
-  color: $green;
-  font-size: 140%;
+.paid-indicator {
+  .fa-money {
+    color: #216C2A;
+    font-size: 140%;
+  }
+  .fa-check {
+    color: $green;
+    //font-size: 140%;
+  }
 }
 
 .filter-button-div {

@@ -1,6 +1,6 @@
-template(name="events")
+template(name="eventList")
   .pull-right
-    {{> loginButtons align="right"}}
+    +loginButtons align="right"
 
   if currentUser
     +eventForm
@@ -15,7 +15,7 @@ template(name="events")
         if currentUser
           th
       each events
-        +eventRow
+        +eventListItem
 
 template(name="eventForm")
   .mb-2
@@ -32,7 +32,7 @@ template(name="eventForm")
     button(type="submit" class="btn btn-primary") create
 
 
-template(name="eventRow")
+template(name="eventListItem")
   tr(data-friendly-id=friendlyId)
     td
       a(href=url)= name

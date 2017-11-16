@@ -1,11 +1,11 @@
-import './events.jade';
+import './event-list.jade';
 import { Events } from '../../api/events/events.js';
 
-Template.events.onCreated(function helloOnCreated() {
+Template.eventList.onCreated(function helloOnCreated() {
   Meteor.subscribe('events');
 });
 
-Template.events.helpers({
+Template.eventList.helpers({
   events() {
     return Events.find({});
   }
@@ -27,13 +27,13 @@ Template.eventForm.helpers({
   }
 });
 
-Template.eventRow.helpers({
+Template.eventListItem.helpers({
   url() {
     return `/${this.friendlyId}`;
   }
 });
 
-Template.eventRow.events({
+Template.eventListItem.events({
   'click .js-delete-event-button'(event, instance) {
     Meteor.call('events.remove', this._id);
   }

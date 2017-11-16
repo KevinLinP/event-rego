@@ -1,14 +1,14 @@
-import './event.jade';
+import './event-detail.jade';
 import { Events } from '../../api/events/events.js';
 
-import '../components/people.js';
+import './people.js';
 
 const fetchEvent = () => {
   const friendlyId = FlowRouter.getParam('eventFriendlyId');
   return Events.findOne({friendlyId: friendlyId});
 };
 
-Template.event.onCreated(function helloOnCreated() {
+Template.eventDetail.onCreated(function helloOnCreated() {
   this.getFriendlyId = () => {
     return FlowRouter.getParam('eventFriendlyId');
   }
@@ -26,7 +26,7 @@ Template.event.onCreated(function helloOnCreated() {
   });
 });
 
-Template.event.helpers({
+Template.eventDetail.helpers({
   event() {
     return fetchEvent();
   }

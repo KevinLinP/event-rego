@@ -33,3 +33,4 @@ accounts-password
 accounts-ui
 manuel:viewmodel
 dalgard:jade
+momentjs:moment

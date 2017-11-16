@@ -15,7 +15,7 @@ template(name="eventList")
 
 template(name="eventForm")
   .mb-2
-    h1.h5 New Event
+    strong New Event
 
   form.event-form($b='submit: createEvent')
     .input-group
@@ -35,7 +35,4 @@ template(name="eventListItem")
   tr(data-friendly-id=friendlyId)
     td
       a(href=url)= name
-    if currentUser
-      td
-        button(data-id=_id class='event-delete-button js-delete-event-button')
-          i.fa.fa-trash
+    td= humanStartsAt

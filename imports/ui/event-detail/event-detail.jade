@@ -1,7 +1,6 @@
 template(name="eventDetail")
-  with event
-    .mb-4
-      h1.h5 #{name}
-      h2.h6 $#{cashAmount}
+  .mb-4
+    h1.h5 #{event.name}
+    h2.h6 #{humanStartsAt} – $#{event.cashAmount}
 
-    +people event=this
+  +people event=event

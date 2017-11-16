@@ -1,4 +1,5 @@
 import { Events } from '../../api/events/events.js';
+import moment from 'moment';
 
 import './event-detail.jade';
 import './people.js';
@@ -29,5 +30,14 @@ Template.eventDetail.onCreated(function helloOnCreated() {
 Template.eventDetail.helpers({
   event() {
     return fetchEvent();
+  },
+  humanStartsAt() {
+    const event = fetchEvent();
+
+    if (event) {
+      return moment(event.startsAt).format('ddd M/D');
+    } else {
+      return null;
+    }
   }
 });

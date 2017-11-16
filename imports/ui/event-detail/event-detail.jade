@@ -3,4 +3,19 @@ template(name="eventDetail")
     h1.h5 #{event.name}
     h2.h6 #{humanStartsAt} – $#{event.cashAmount}
 
-  +people event=event
+  if filterLetter
+    +peopleList event=event
+  else
+    +filterButtons
+
+  if currentUser
+    .mb-4
+      .h6 Add hasher
+      +personForm
+
+template(name="personForm")
+  form.person-form($b='submit: createPerson')
+    .mr-1
+      input.form-control(type='text' name='name' placeholder='name' required='true' $b='value: name')
+
+    button(type="submit" class="btn btn-primary") add

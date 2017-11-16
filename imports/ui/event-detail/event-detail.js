@@ -1,8 +1,11 @@
 import { Events } from '../../api/events/events.js';
+import { People } from '../../api/people/people.js';
+import { Regos } from '../../api/regos/regos.js';
 import moment from 'moment';
 
 import './event-detail.jade';
-import './people.js';
+import './people-list.js';
+import './filter-buttons.js';
 
 const fetchEvent = () => {
   const friendlyId = FlowRouter.getParam('eventFriendlyId');
@@ -16,6 +19,10 @@ Template.eventDetail.onCreated(function helloOnCreated() {
 
   this.autorun(() => {
     this.subscribe('event', this.getFriendlyId());
+  });
+
+  this.autorun(() => {
+    this.subscribe('people');
   });
 
   this.autorun(() => {
@@ -39,5 +46,20 @@ Template.eventDetail.helpers({
     } else {
       return null;
     }
+  },
+  filterLetter() {
+    return FlowRouter.getQueryParam('filter');
+  }
+});
+
+Template.personForm.viewmodel({
+  name: '',
+  createPerson: function(event) {
+    event.preventDefault();
+    const name = this.name().trim();
+
+    // TODO: navigate to filter page
+
+    Meteor.call('people.insert', name);
   }
 });

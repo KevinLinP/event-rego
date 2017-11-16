@@ -79,13 +79,17 @@
 }
 
 .paid-indicator {
-  .fa-money {
-    color: #216C2A;
-    font-size: 140%;
+  position: relative;
+
+  .fa-paypal {
+    position: absolute;
+    top: 5px;
+    left: -12px;
+    color: #009CDE;
   }
   .fa-check {
     color: $green;
-    //font-size: 140%;
+    font-size: 140%;
   }
 }
 

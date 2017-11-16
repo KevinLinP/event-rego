@@ -40,8 +40,8 @@ Template.personListItem.viewmodel({
 
     return (rego && rego.completed());
   },
-  paidWithCash() {
-    return this.rego().type == 'cash';
+  paidWithPaypal() {
+    return this.rego().type == 'paypal';
   },
   payPath: function(event) {
     const eventId = this.event().friendlyId;

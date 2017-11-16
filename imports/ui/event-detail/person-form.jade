@@ -1,0 +1,6 @@
+template(name="personForm")
+  form.person-form($b='submit: createPerson')
+    .mr-1
+      input.form-control(type='text' name='name' placeholder='name' required='true' $b='value: name')
+
+    button(type="submit" class="btn btn-primary") add

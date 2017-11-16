@@ -17,12 +17,12 @@ template(name="personListItem")
     td.person-list-item-name= name
     td.person-list-item-buttons
       if paid
-        span.paid-indicator
-          if paidWithCash
-            i.fa.fa-money
-          else
+        .paid-indicator
+          if paidWithPaypal
             i.fa.fa-paypal
+
           i.fa.fa-check
+
       else
         if currentUser
           button.pay-with-cash-button($b='click: payWithCash()')

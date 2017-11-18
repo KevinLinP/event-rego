@@ -1,0 +1,18 @@
+{
+  "name": "event-rego",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Kevin Lin <kevin.lin.p@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/kevinlinp/event-rego",
+  "directory": "imports/client/ui/bower_components/",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "imports/client/ui/bower_components",
+    "test",
+    "tests"
+  ]
+}

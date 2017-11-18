@@ -1,0 +1,37 @@
+<dom-module id="test-element">
+  <template>
+  <link rel="stylesheet" href="test-element.css"> <!--converted to style tag. this style is restricted to elements inside the element-->
+  <style> 
+  #nndiv{color:blue}
+  </style>
+    <p>
+      Name : {{name}}
+    </p>
+    <div id="nnDiv" hidden="{{nndHidden}}">
+      Nickname: {{ nickname }}
+    </div>
+  </template>
+</dom-module>
+
+<script>
+Polymer({
+  is:"test-element",
+  properties:{
+    name:{
+      type:String,
+      value:"Arun Kumar"
+    },
+    nickname:{
+      type:String,
+      value:"tkay"
+    },
+    nndHidden:{
+      type:Boolean,
+      value:true
+    }
+  },
+  showNickName: function () {
+    this.nndHidden = false;
+  }
+})
+</script>

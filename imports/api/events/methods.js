@@ -3,22 +3,17 @@ import { check } from 'meteor/check';
 import { Events } from './events.js';
 
 Meteor.methods({
-  'events.insert'(name, cashAmount) {
+  'events.insert'(fields) {
     var friendlyUrl = require('friendly-url');
+    var chrono = require('chrono-node');
 
-    check(name, String);
-    check(cashAmount, Number);
-    const friendlyId = friendlyUrl(name);
+    fields.startsAt = chrono.parseDate(fields.startsAt);
+    fields.friendlyId = friendlyUrl(fields.name);
 
-    const event = {
-      name,
-      cashAmount,
-      friendlyId,
-      createdAt: new Date(),
-    }
+    Events.schema.clean(fields);
+    Events.schema.validate(fields);
 
-    Events.schema.validate(event);
-    return Events.insert(event);
+    return Events.insert(fields);
   },
 
   'events.remove'(id) {

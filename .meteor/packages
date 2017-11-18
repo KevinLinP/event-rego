@@ -30,7 +30,6 @@ dburles:collection-helpers
 percolate:migrations
 aldeed:simple-schema
 accounts-password
-accounts-ui
 manuel:viewmodel
 dalgard:jade
 vuejs:meteor-integration

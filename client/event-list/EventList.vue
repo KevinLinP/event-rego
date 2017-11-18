@@ -4,7 +4,9 @@ div
     h1.h3 Events
 
   table.table
-    EventListItem(v-for='event in events' :key='event._id' :event='event')
+    event-list-item(v-for='event in events' :key='event._id' :event='event')
+
+  event-form
 </template>
 
 <script>

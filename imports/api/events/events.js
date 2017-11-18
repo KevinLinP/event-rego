@@ -7,6 +7,7 @@ export const Events = new Mongo.Collection('events');
 Events.schema = new SimpleSchema({
   name: {type: String},
   friendlyId: {type: String},
+  startsAt: {type: Date},
   cashAmount: {type: Number, decimal: true},
   createdAt: {type: Date, autoValue: () => {
     return new Date();

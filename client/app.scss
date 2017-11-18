@@ -1,0 +1,139 @@
+@import "{}/node_modules/bootstrap/scss/bootstrap.scss";
+
+.event-form {
+  .input-group {
+    @extend .mb-2;
+  }
+
+  input {
+    @extend .form-control;
+  }
+}
+
+.person-form {
+  @extend .form-inline;
+
+  input {
+    @extend .form-control;
+  }
+}
+
+.event-delete-button {
+  @extend .btn;
+  @extend .btn-danger;
+}
+
+.paypal-pay-button {
+  @extend .btn;
+  @extend .btn-primary;
+  border-color: #009cde;
+  background-color: #009cde;
+
+  &:hover {
+    background-color: #003087;
+    border-color: #003087;
+  }
+}
+
+.pay-with-cash-button {
+  @extend .btn;
+  @extend .btn-success;
+  @extend .btn-sm;
+  background-color: #218838;
+  border-color: #218838;
+
+  &:hover {
+    background-color: darken(#218838, 10%);
+    border-color: darken(#218838, 10%);
+  }
+}
+
+.people-list {
+  @extend .table;
+
+  td {
+    vertical-align: middle;
+    border-top: none;
+    padding: 0 0 0.8rem 0;
+  }
+}
+
+.people-list-back {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .btn-outline-primary;
+
+  .fa {
+    font-size: 90%;
+  }
+}
+
+.person-list-item-name {
+  font-size: 125%;
+}
+
+.person-list-item-buttons {
+  @extend .text-center;
+  width: 1%;
+  white-space: nowrap;
+}
+
+.paid-indicator {
+  position: relative;
+
+  .fa-paypal {
+    position: absolute;
+    top: 5px;
+    left: -12px;
+    color: #009CDE;
+  }
+  .fa-check {
+    color: $green;
+    font-size: 140%;
+  }
+}
+
+.filter-button-div {
+  @extend .col-3;
+
+  @extend .d-flex;
+  @extend .justify-content-center;
+
+  $margin: 8px;
+  padding-left: $margin;
+  padding-right: $margin;
+  margin-bottom: 2 * $margin;
+}
+
+.filter-button {
+  @extend .btn;
+  @extend .btn-outline-secondary;
+
+  @extend .p-0;
+
+  $button-size: 20vw;
+  width: $button-size;
+  height: $button-size;
+
+  color: #666;
+  border-color: #666;
+
+  @extend .d-flex;
+  @extend .flex-column;
+  @extend .justify-content-center;
+
+  font-weight: 300;
+
+  font-size: 10vw;
+
+  &[disabled] {
+    @extend .disabled;
+    color: #CCCCCC !important;
+  }
+}
+
+.filter-letter-heading {
+  @extend .h1;
+  @extend .mb-0;
+  line-height: 1;
+}

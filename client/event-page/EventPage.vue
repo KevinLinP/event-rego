@@ -1,12 +1,14 @@
 <template lang="pug">
 div
-  h1 {{ event.name }}
-  | {{ regoCount }}
+  .mb-4(v-if='event')
+    h1.h5 {{event.name}}
+    h2.h6 ${{event.cashAmount}}
+
+  people
 </template>
 
 <script>
   import { Events } from '/imports/api/events/events.js';
-  import { Regos } from '/imports/api/regos/regos.js';
 
   const component = {
     meteor: {
@@ -14,6 +16,7 @@ div
         'event': function() {
           return [this.friendlyId()];
         },
+        'people': [],
         'eventRegos': function() {
           return [this.friendlyId()];
         }

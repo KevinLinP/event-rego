@@ -34,6 +34,7 @@ Meteor.methods({
       createdAt: new Date(),
     }
 
+    People.schema.clean(person);
     People.schema.validate(person);
     return People.insert(person);
   },

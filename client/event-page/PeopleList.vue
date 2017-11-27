@@ -1,7 +1,15 @@
 <template lang="pug">
 div
+  .mb-3
+    .d-flex.justify-content-between.align-items-center.mb-2
+      .filter-letter-heading {{ filterLetter.toUpperCase() }}
+      div
+        button.people-list-back(onclick="javascript:history.back()")
+          i.fa.fa-chevron-left
+          | back
+
   table.people-list
-    people-list-item(v-for="person in filteredPeople" :person='person')
+    people-list-item(v-for="person in filteredPeople" :person='person' :event='event')
 </template>
 
 <script>

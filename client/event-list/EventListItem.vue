@@ -1,16 +1,21 @@
 <template lang="pug">
 tr
   td
-    a(:href='href()') {{event.name}}
+    router-link(:to='to') {{event.name}}
 </template>
 
 <script>
   const component = {
     props: ['event'],
-    methods: {
-      href: function() {
-        return `/${this.event.friendlyId}`;
+    data: function() {
+      const to = {
+        name: 'eventPage',
+        params: {
+          eventFriendlyId: this.event.friendlyId
+        }
       }
+
+      return {to};
     }
   };
 

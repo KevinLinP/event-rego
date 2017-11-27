@@ -4,7 +4,7 @@ div
     h1.h5 {{event.name}}
     h2.h6 ${{event.cashAmount}}
 
-  people-list(v-if="filterLetter")
+  people-list(v-if="filterLetter" :event='event')
   filter-buttons(v-else :event='event')
 
   .mb-4

@@ -2,7 +2,7 @@
 div
   div(v-if="filterLetter")
     table.people-list
-      tr(v-for="person in people")
+      tr(v-for="person in filteredPeople")
         td {{person.name}}
 
   .row(v-else)
@@ -14,7 +14,6 @@ div
 </template>
 
 <script>
-  import { Regos } from '/imports/api/regos/regos.js';
   import { People } from '/imports/api/people/people.js';
 
   const component = {
@@ -33,8 +32,16 @@ div
       };
     },
     meteor: {
-      people: function() {
-        return People.find({});
+      filteredPeople: {
+        params: function() {
+          return {filterLetter: this.filterLetter};
+        },
+        update: function({filterLetter}) {
+          const query = {name: {$regex: `^${filterLetter}`, $options: 'i'}};
+          const options = {sort: {name: 1}};
+
+          return People.find(query, options);
+        }
       }
     },
     computed: {

@@ -4,8 +4,10 @@ div
     table.people-list
       tr(v-for="person in people")
         td {{person.name}}
-  div(v-else)
-    filter-buttons
+
+  .row(v-else)
+    filter-button(v-for="letter in letters" :letter="letter", :event="event")
+
   .mb-4
     .h6 Add hasher
     person-form
@@ -16,6 +18,20 @@ div
   import { People } from '/imports/api/people/people.js';
 
   const component = {
+    props: ['event'],
+    data: function() {
+      let letters = [];
+
+      let i;
+      for (n = 0; n < 26; n++) {
+        const letter = String.fromCharCode(97 + n);
+        letters.push(letter);
+      }
+
+      return {
+        letters
+      };
+    },
     meteor: {
       people: function() {
         return People.find({});
@@ -25,7 +41,7 @@ div
       filterLetter: function() {
         return this.$route.query.filter;
       }
-    }
+    },
   };
 
   export default component;

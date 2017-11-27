@@ -4,7 +4,7 @@ div
     h1.h5 {{event.name}}
     h2.h6 ${{event.cashAmount}}
 
-  people
+  people(:event='event')
 </template>
 
 <script>

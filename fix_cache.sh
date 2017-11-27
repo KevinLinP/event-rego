@@ -1,2 +1,5 @@
-rm .meteor/local/plugin-cache/akryum_vue-component/0.12.2/*
-rm .meteor/local/plugin-cache/akryum_vue-router2/0.1.1/*
+rm -rf .meteor/local/build
+rm -rf .meteor/local/bundler-cache
+rm -rf .meteor/local/isopacks
+rm -rf .meteor/local/plugin-cache
+rm -rf .meteor/local/shell

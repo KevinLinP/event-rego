@@ -4,7 +4,12 @@ div
     h1.h5 {{event.name}}
     h2.h6 ${{event.cashAmount}}
 
-  people(:event='event')
+  people-list(v-if="filterLetter")
+  filter-buttons(v-else :event='event')
+
+  .mb-4
+    .h6 Add hasher
+    person-form
 </template>
 
 <script>
@@ -31,6 +36,9 @@ div
       }
     },
     computed: {
+      filterLetter: function() {
+        return this.$route.query.filter;
+      },
       regoCount: function() {
         if (this.event) {
           return Regos.find({eventId: this.event._id}).count();

@@ -1,0 +1,10 @@
+template(name="filterButtons")
+  .row
+    each letters
+      .filter-button-div
+        if active
+          a.filter-button(href=href)
+            div #{display}
+        else
+          a.filter-button(disabled='disabled')
+            div #{display}

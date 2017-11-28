@@ -1,17 +1,6 @@
-import './people.jade';
 import { People } from '../../api/people/people.js';
-import { Regos } from '../../api/regos/regos.js';
 
-import './people-list.js';
-
-Template.people.viewmodel({
-  onCreated: function() {
-    Meteor.subscribe('people');
-  },
-  filterLetter: function() {
-    return FlowRouter.getQueryParam('filter');
-  }
-});
+import './filter-buttons.jade';
 
 Template.filterButtons.helpers({
   letters() {
@@ -31,17 +20,5 @@ Template.filterButtons.helpers({
     }
     
     return letters;
-  }
-});
-
-Template.personForm.viewmodel({
-  name: '',
-  createPerson: function(event) {
-    event.preventDefault();
-    const name = this.name().trim();
-
-    // TODO: navigate to filter page
-
-    Meteor.call('people.insert', name);
   }
 });

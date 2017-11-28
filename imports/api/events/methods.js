@@ -7,13 +7,21 @@ Meteor.methods({
     var friendlyUrl = require('friendly-url');
     var chrono = require('chrono-node');
 
-    fields.startsAt = chrono.parseDate(fields.startsAt);
-    fields.friendlyId = friendlyUrl(fields.name);
+    let {name, startsAt, cashAmount} = fields;
+    startsAt = chrono.parseDate(startsAt);
+    const friendlyId = friendlyUrl(name);
 
-    Events.schema.clean(fields);
-    Events.schema.validate(fields);
+    const event = {
+      name,
+      cashAmount,
+      startsAt,
+      friendlyId
+    }
 
-    return Events.insert(fields);
+    Events.schema.clean(event);
+    Events.schema.validate(event);
+
+    return Events.insert(event);
   },
 
   'events.remove'(id) {

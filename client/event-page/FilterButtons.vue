@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  filter-button(v-for="letter in letters" :letter='letter' :event='event')
+  filter-button(v-for="letter in letters" :key='letter' :letter='letter' :event='event')
 </template>
 
 <script>

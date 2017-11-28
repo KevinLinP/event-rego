@@ -5,11 +5,10 @@ div
       .filter-letter-heading {{ filterLetter.toUpperCase() }}
       div
         button.people-list-back(onclick="javascript:history.back()")
-          i.fa.fa-chevron-left
           | back
 
   table.people-list
-    people-list-item(v-for="person in filteredPeople" :person='person' :event='event')
+    people-list-item(v-for="person in filteredPeople" :key='person._id' :person='person' :event='event')
 </template>
 
 <script>

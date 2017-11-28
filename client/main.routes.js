@@ -14,4 +14,9 @@ export default [
     name: 'eventPage',
     component: '/client/event-page/EventPage.vue'
   },
+  {
+    path: '/:eventFriendlyId/pay',
+    name: 'payPage',
+    component: '/client/pay-page/PayPage.vue'
+  },
 ];

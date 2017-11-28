@@ -6,8 +6,9 @@ div
 
   people-list(v-if="filterLetter" :event='event')
   filter-buttons(v-else :event='event')
+  script(src="https://www.paypalobjects.com/api/checkout.js")
 
-  .mb-4
+  .mb-4(v-if='loggedIn')
     .h6 Add hasher
     person-form
 </template>
@@ -21,13 +22,16 @@ div
         'event': function() {
           return [this.friendlyId()];
         },
-        'people': [],
         'eventRegos': function() {
           return [this.friendlyId()];
-        }
+        },
+        'people': []
       },
       event: function() {
         return Events.findOne({friendlyId: this.friendlyId()});
+      },
+      loggedIn: function() {
+        return !!Meteor.userId();
       }
     },
     methods: {

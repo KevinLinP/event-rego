@@ -1,6 +1,6 @@
 <template lang="pug">
 .filter-button-div
-  router-link(class='filter-button' :to='to' :disabled='disabled')
+  router-link(class='filter-button' v-if='event' :to='to' :disabled='disabled')
     | {{ display() }}
 </template>
 

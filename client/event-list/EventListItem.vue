@@ -2,9 +2,12 @@
 tr
   td
     router-link(:to='to') {{event.name}}
+  td {{humanStartsAt}}
 </template>
 
 <script>
+  import moment from 'moment';
+
   const component = {
     props: ['event'],
     data: function() {
@@ -15,7 +18,12 @@ tr
         }
       }
 
-      return {to};
+      const humanStartsAt = moment(this.event.startsAt).format('ddd M/D');
+
+      return {
+        to,
+        humanStartsAt
+      };
     }
   };
 

@@ -10,6 +10,13 @@
   }
 }
 
+.form-inline {
+  // extends bootstrap form-inline
+  input {
+    @extend .form-control;
+  }
+}
+
 .event-delete-button {
   @extend .btn;
   @extend .btn-danger;

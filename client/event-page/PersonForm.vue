@@ -1,5 +1,5 @@
 <template lang="pug">
-form.person-form(@submit="createPerson")
+form.form(@submit="createPerson")
   .mr-1
     input.form-control(type='text' v-model="name" placeholder='name' required='true')
 

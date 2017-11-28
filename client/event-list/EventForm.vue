@@ -3,7 +3,7 @@ div
   .mb-2
     strong New Event
 
-  form.event-form(@submit='createEvent')
+  form.form(@submit='createEvent')
     .input-group
       input(type='text' v-model='name' placeholder='event name')
 

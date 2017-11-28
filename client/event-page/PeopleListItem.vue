@@ -5,10 +5,9 @@ tr.person-list-item
     span.cash-paid-icon(v-if='paid')
       i.fa.fa-check
     span(v-else)
-      a.paypal-pay-button(:href='payPath()')
+      button.pay-with-cash-button(v-if='loggedIn') Pay
+      a.paypal-pay-button(v-else :href='payPath()')
         i.fa.fa-paypal
-      <!--if currentUser-->
-        <!--button.pay-with-cash-button($b='click: payWithCash()')= payWithCashIcon-->
 </template>
 
 <script>
@@ -17,6 +16,9 @@ tr.person-list-item
   const component = {
     props: ['person', 'event'],
     meteor: {
+      loggedIn: function() {
+        return !!Meteor.userId();
+      },
       paid: function() {
         console.log(this.event);
         const eventId = this.event._id;

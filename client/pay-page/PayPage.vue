@@ -11,9 +11,13 @@ div
     div 
       | {{event.name}}
 
-    div
-      small (safety third; as usual, please make sure the address bar has 'PayPal, Inc' in green before entering in any PayPal information)
-      #paypal-button
+    div(v-if='$subReady.singleRego')
+      div(v-if='rego')
+        div(v-if='rego.status == "completed"') Payment completed
+        div(v-else) Payment in progress
+      div(v-else)
+        small (safety third; as usual, please make sure the address bar has 'PayPal, Inc' in green before entering in any PayPal information)
+        #paypal-button
 
 </template>
 
@@ -36,16 +40,41 @@ div
         },
         'person': function() {
           return [this.personFriendlyId];
-        },
-        'singleRego': function() {
-          return [this.eventFriendlyId, this.personFriendlyId];
         }
       },
       event: function() {
-        return Events.findOne({friendlyId: this.eventFriendlyId});
+        const event = Events.findOne({friendlyId: this.eventFriendlyId});
+        if (this.person) {
+          this.$subscribe('singleRego', event._id, this.person._id);
+        }
+
+        return event
       },
       person: function() {
-        return People.findOne({friendlyId: this.personFriendlyId});
+        const person = People.findOne({friendlyId: this.personFriendlyId});
+
+        if (this.event) {
+          this.$subscribe('singleRego', this.event._id, person._id);
+        }
+
+        return person;
+      },
+      rego: {
+        params: function() {
+          return {
+            event: this.event,
+            person: this.person
+          };
+        },
+        update: function({event, person}) {
+          if (!event || !person) {
+            return null;
+          }
+
+          const rego = Regos.findOne({eventId: event._id, personId: person._id});
+          console.log(rego);
+          return rego;
+        }
       }
     },
     updated: function() {

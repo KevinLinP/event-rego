@@ -6,7 +6,6 @@ div
 
   people-list(v-if="filterLetter" :event='event')
   filter-buttons(v-else :event='event')
-  script(src="https://www.paypalobjects.com/api/checkout.js")
 
   .mb-4(v-if='loggedIn')
     .h6 Add hasher

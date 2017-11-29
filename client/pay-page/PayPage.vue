@@ -74,11 +74,13 @@ div
             env: 'sandbox', // Or 'sandbox'
             commit: true, // Show a 'Pay Now' button
             payment: function() {
-              const id = applyWithPromise('paypal.createPayment', [eventId, personId]);
+              const id = applyWithPromise('regos.createPaypalPayment', [{eventId, personId}]);
               return id;
             },
             onAuthorize: function(data) {
-              applyWithPromise('paypal.authorizePayment', [data.paymentID, data.payerID]);
+              const paymentId = data.paymentID;
+              const payerId = data.payerID;
+              applyWithPromise('regos.authorizePaypalPayment', [{paymentId, payerId}]);
             }
           }, '#paypal-button');
         };

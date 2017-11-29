@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Promise } from 'meteor/promise';
 import { check } from 'meteor/check';
+import { _ } from 'meteor/underscore';
 
 import { Events } from '../events/events.js';
 import { People } from '../people/people.js';
@@ -12,7 +13,7 @@ const paypalClient = (paypal) => {
   return new paypal.PayPalHttpClient(env);
 }
 
-const paymentObj = function(event, person) {
+const createPaypalPayment = function(event, person) {
   const itemName = `Hash cash: ${event.name.substring(0, 59)} (${person.name.substring(0, 39)})`
 
   const items = [
@@ -79,10 +80,8 @@ const getRegoData = (payment) => {
 
 Meteor.methods({
   'regos.payWithCash'({eventId, personId}) {
-    check(eventId, String);
-    check(personId, String);
-
     const { event, person } = fetchObjects(eventId, personId);
+
     let rego = {
       type: 'cash',
       status: 'completed',
@@ -94,14 +93,17 @@ Meteor.methods({
     Regos.schema.validate(rego);
     Regos.insert(rego);
   },
-  'paypal.createPayment'(eventId, personId) {
+
+  // TODO: refactor
+  'regos.createPaypalPayment'({eventId, personId}) {
     const { event, person } = fetchObjects(eventId, personId);
 
     const paypal = require('paypal-rest-sdk');
     const client = paypalClient(paypal);
 
     let request = new paypal.PaymentCreateRequest();
-    request.requestBody(paymentObj(event, person));
+    const paypalPayment = createPaypalPayment(event, person);
+    request.requestBody(paypalPayment);
 
     const response = Promise.await(client.execute(request));
     const payment = response.result;
@@ -110,18 +112,17 @@ Meteor.methods({
       paymentId: payment.id,
       data: payment
     };
+    Payments.schema.clean(paymentDoc);
+    Payments.schema.validate(paymentDoc);
 
     const rawPayments = Payments.rawCollection();
     const syncInsert = Meteor.wrapAsync(rawPayments.insert, rawPayments);
-
-    Payments.schema.clean(paymentDoc);
-    Payments.schema.validate(paymentDoc);
     syncInsert(paymentDoc);
 
     return payment.id;
   },
 
-  'paypal.authorizePayment'(paymentId, payerId) {
+  'regos.authorizePaypalPayment'({paymentId, payerId}) {
     const paymentDoc = Payments.findOne({paymentId: paymentId});
     if (paymentDoc.status != 'created') {
       return;
@@ -149,6 +150,7 @@ Meteor.methods({
 
     const request = new paypal.PaymentExecuteRequest(paymentId);
     request.requestBody({payer_id: payerId});
+
     const response = Promise.await(client.execute(request));
     payment = response.result;
 

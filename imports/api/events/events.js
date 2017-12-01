@@ -15,12 +15,14 @@ Events.schema = new SimpleSchema({
 });
 
 Events.helpers({
+  // inverse of y = x - 0.29x - .3
   paypalFee() {
-    let cents = this.cashAmount * 100;
-    cents = (cents * 0.029) + 30;
-    cents = Math.ceil(cents);
+    let cashAmountCents = this.cashAmount * 100;
+    let feeCents = (cashAmountCents + 30) / 0.971;
+    feeCents = feeCents - cashAmountCents;
+    feeCents = Math.ceil(feeCents);
 
-    return (cents / 100);
+    return (feeCents / 100);
   },
 
   paypalTotal() {

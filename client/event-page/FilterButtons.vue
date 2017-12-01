@@ -15,6 +15,8 @@
         letters.push(letter);
       }
 
+      letters.push('#');
+
       return {
         letters
       };

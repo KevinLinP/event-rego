@@ -1,16 +1,19 @@
 <template lang="pug">
 div
   .mb-4(v-if='event')
-    h1.h5 {{event.name}}
-    h2.h6 ${{event.cashAmount}}
+    h1.h5 
+      | {{event.name}}
+      br
+      small ${{event.cashAmount}}
 
   .mb-4(v-if='loggedIn')
     paid-only-toggle
 
-  people-list(v-if='viewPaidOnly' :event='event' :paidOnly='true')
-  div(v-else)
-    people-list(v-if="filterLetter" :event='event' :filterLetter='filterLetter')
-    filter-buttons(v-else :event='event')
+  .mb-3
+    people-list(v-if='viewPaidOnly' :event='event' :paidOnly='true')
+    div(v-else)
+      people-list(v-if="filterLetter" :event='event' :filterLetter='filterLetter')
+      filter-buttons(v-else :event='event')
 
   .mb-4(v-if='loggedIn')
     .h6 Add hasher

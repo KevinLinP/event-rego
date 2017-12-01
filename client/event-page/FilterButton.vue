@@ -12,7 +12,14 @@
     props: ['letter', 'event'],
     meteor: {
       disabled: function() {
-        return !People.findOne({name: {$regex: `^${this.letter}`, $options: 'i'}});
+        let regex;
+        if (this.letter == '#') {
+          regex = '^[^a-zA-Z]';
+        } else {
+          regex = `^${this.letter}`;
+        }
+
+        return !People.findOne({name: {$regex: regex, $options: 'i'}});
       }
     },
     methods: {

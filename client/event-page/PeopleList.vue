@@ -25,7 +25,14 @@ div
         },
         update: function({filterLetter, paidOnly}) {
           if (filterLetter) {
-            const query = {name: {$regex: `^${filterLetter}`, $options: 'i'}};
+            let regex;
+            if (filterLetter == '#') {
+              regex = '^[^a-zA-Z]';
+            } else {
+              regex = `^${filterLetter}`;
+            }
+
+            const query = {name: {$regex: regex, $options: 'i'}};
             const options = {sort: {name: 1}};
 
             return People.find(query, options);

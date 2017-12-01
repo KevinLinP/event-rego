@@ -136,3 +136,14 @@
   @extend .mb-0;
   line-height: 1;
 }
+
+.paid-only-toggle {
+  @extend .nav;
+  @extend .nav-pills;
+  @extend .nav-justified;
+
+  a {
+    @extend .nav-item;
+    @extend .nav-link;
+  }
+}

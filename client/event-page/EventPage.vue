@@ -4,8 +4,13 @@ div
     h1.h5 {{event.name}}
     h2.h6 ${{event.cashAmount}}
 
-  people-list(v-if="filterLetter" :event='event')
-  filter-buttons(v-else :event='event')
+  .mb-4(v-if='loggedIn')
+    paid-only-toggle
+
+  people-list(v-if='viewPaidOnly' :event='event' :paidOnly='true')
+  div(v-else)
+    people-list(v-if="filterLetter" :event='event')
+    filter-buttons(v-else :event='event')
 
   .mb-4(v-if='loggedIn')
     .h6 Add hasher
@@ -13,6 +18,7 @@ div
 </template>
 
 <script>
+  import { Session } from 'meteor/session'
   import { Events } from '/imports/api/events/events.js';
 
   const component = {
@@ -31,6 +37,9 @@ div
       },
       loggedIn: function() {
         return !!Meteor.userId();
+      },
+      viewPaidOnly: function() {
+        return Session.get('viewPaidOnly');
       }
     },
     methods: {

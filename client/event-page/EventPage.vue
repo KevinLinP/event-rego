@@ -9,7 +9,7 @@ div
 
   people-list(v-if='viewPaidOnly' :event='event' :paidOnly='true')
   div(v-else)
-    people-list(v-if="filterLetter" :event='event')
+    people-list(v-if="filterLetter" :event='event' :filterLetter='filterLetter')
     filter-buttons(v-else :event='event')
 
   .mb-4(v-if='loggedIn')

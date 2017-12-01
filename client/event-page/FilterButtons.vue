@@ -11,7 +11,7 @@
 
       let i;
       for (n = 0; n < 26; n++) {
-        const letter = String.fromCharCode(97 + n);
+        const letter = String.fromCharCode(97 + n); // 97 = 'a'
         letters.push(letter);
       }
 

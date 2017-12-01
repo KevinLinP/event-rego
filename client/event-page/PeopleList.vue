@@ -4,7 +4,7 @@ div
     .d-flex.justify-content-between.align-items-center.mb-2
       .filter-letter-heading {{ filterLetter.toUpperCase() }}
       div
-        button.people-list-back(onclick="javascript:history.back()")
+        button.people-list-back(@click='clearFilterLetter')
           | back
 
   table.people-list
@@ -12,6 +12,7 @@ div
 </template>
 
 <script>
+  import { Session } from 'meteor/session';
   import { People } from '/imports/api/people/people.js';
   import { Regos } from '/imports/api/regos/regos.js';
 
@@ -37,6 +38,11 @@ div
             return People.find({_id: {$in: personIds}}, {sort: {name: 1}});
           }
         }
+      }
+    },
+    methods: {
+      clearFilterLetter: function() {
+        Session.set('filterLetter', null);
       }
     }
   };

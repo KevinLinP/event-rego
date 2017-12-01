@@ -40,6 +40,9 @@ div
       },
       viewPaidOnly: function() {
         return Session.get('viewPaidOnly');
+      },
+      filterLetter: function() {
+        return Session.get('filterLetter');
       }
     },
     methods: {
@@ -48,9 +51,6 @@ div
       }
     },
     computed: {
-      filterLetter: function() {
-        return this.$route.query.filter;
-      },
       regoCount: function() {
         if (this.event) {
           return Regos.find({eventId: this.event._id}).count();

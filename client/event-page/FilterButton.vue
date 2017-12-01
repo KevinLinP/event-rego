@@ -1,10 +1,11 @@
 <template lang="pug">
 .filter-button-div
-  router-link(class='filter-button' v-if='event' :to='to' :disabled='disabled')
+  a(class='filter-button' v-if='event' :disabled='disabled' @click='setFilterLetter' href="javascript:void(0);")
     | {{ display() }}
 </template>
 
 <script>
+  import { Session } from 'meteor/session';
   import { People } from '/imports/api/people/people.js';
 
   const component = {
@@ -17,23 +18,9 @@
     methods: {
       display: function() {
         return this.letter.toUpperCase();
-      }
-    },
-    computed: {
-      to: function() {
-        if (!this.event) {
-          return null;
-        }
-
-        return {
-          name: 'eventPage',
-          params: {
-            eventFriendlyId: this.event.friendlyId
-          },
-          query: {
-            filter: this.letter
-          }
-        }
+      },
+      setFilterLetter: function() {
+        Session.set('filterLetter', this.letter);
       }
     }
   };

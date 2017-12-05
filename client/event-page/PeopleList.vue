@@ -8,17 +8,17 @@ div
           | back
 
   .paid-only-stats.row(v-if='paidOnly')
-    .col-4
+    .col-6
       .h {{ paidCount }}
       .desc paid hashers
-    .col-4
-      .h {{ cashPaidCount }}
-      .desc hashers paid w/ cash
-    .col-4
+    // .col-4
+    //  .h {{ cashPaidCount }}
+    //  .desc hashers paid w/ cash
+    .col-6
       .h
         span.font-weight-light $
         | {{ expectedCashTotal }}
-      .desc expected cash
+      .desc paid w/ cash
 
   table.people-list()
     people-list-item(v-for="person in filteredPeople" :key='person._id' :person='person' :event='event')

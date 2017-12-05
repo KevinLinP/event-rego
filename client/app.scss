@@ -169,3 +169,19 @@
   @extend .mx-auto;
   width: 150px;
 }
+
+.paid-only-stats {
+  @extend .mb-4;
+  @extend .text-center;
+
+  .h {
+    @extend .h3;
+    line-height: 1.0;
+    margin-bottom: 0.2rem;
+  }
+
+  .desc {
+    font-size: 80%;
+    line-height: 1.2;
+  }
+}

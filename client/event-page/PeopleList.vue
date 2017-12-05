@@ -7,7 +7,20 @@ div
         button.people-list-back(onclick="javascript:history.back()")
           | back
 
-  table.people-list
+  .paid-only-stats.row(v-if='paidOnly')
+    .col-4
+      .h {{ paidCount }}
+      .desc paid hashers
+    .col-4
+      .h {{ cashPaidCount }}
+      .desc hashers paid w/ cash
+    .col-4
+      .h
+        span.font-weight-light $
+        | {{ expectedCashTotal }}
+      .desc expected cash
+
+  table.people-list()
     people-list-item(v-for="person in filteredPeople" :key='person._id' :person='person' :event='event')
 </template>
 
@@ -16,6 +29,7 @@ div
   import { People } from '/imports/api/people/people.js';
   import { Regos } from '/imports/api/regos/regos.js';
 
+  // TODO: refactor
   const component = {
     props: ['event', 'filterLetter', 'paidOnly'],
     meteor: {
@@ -45,6 +59,17 @@ div
             return People.find({_id: {$in: personIds}}, {sort: {name: 1}});
           }
         }
+      },
+      paidCount: function() {
+        return Regos.find({eventId: this.event._id}).count();
+      },
+      cashPaidCount: function() {
+        return Regos.find({eventId: this.event._id, type: 'cash'}).count();
+      },
+      expectedCashTotal: function() {
+        const cashRegos = Regos.find({eventId: this.event._id, type: 'cash'}).count();
+
+        return this.event.cashAmount * cashRegos;
       }
     },
   };

@@ -9,7 +9,7 @@ div
   .mb-4(v-if='loggedIn')
     paid-only-toggle(v-if='event' :event='event' :paidOnly='paidOnly')
 
-  .mb-3
+  .mb-3(v-if='event')
     people-list(v-if='paidOnly' :event='event' :paidOnly='true')
     div(v-else)
       people-list(v-if="filterLetter" :event='event' :filterLetter='filterLetter')

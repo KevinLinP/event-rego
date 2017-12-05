@@ -21,7 +21,7 @@ div
         return !!Meteor.userId();
       },
       events: function() {
-        return Events.find({});
+        return Events.find({}, {sort: {startsAt: -1}});
       }
     }
   };

@@ -1,4 +1,4 @@
-* admin lockdown all the methods
+* paid count on paidOnly view
 * desktop view fallback
 
 Completed
@@ -9,3 +9,4 @@ Completed
 * figure out EventPage browser history
 * better PayPage
 * undo for paidWithCash
+* admin lockdown all the methods

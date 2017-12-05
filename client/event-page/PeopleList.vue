@@ -4,7 +4,7 @@ div
     .d-flex.justify-content-between.align-items-center.mb-2
       .filter-letter-heading {{ filterLetter.toUpperCase() }}
       div
-        button.people-list-back(@click='clearFilterLetter')
+        button.people-list-back(onclick="javascript:history.back()")
           | back
 
   table.people-list
@@ -47,11 +47,6 @@ div
         }
       }
     },
-    methods: {
-      clearFilterLetter: function() {
-        Session.set('filterLetter', null);
-      }
-    }
   };
 
   export default component;

@@ -1,7 +1,9 @@
 <template lang="pug">
 .filter-button-div
-  a(class='filter-button' v-if='event' :disabled='disabled' @click='setFilterLetter' href="javascript:void(0);")
-    | {{ display() }}
+  router-link(v-if='event' class='filter-button' :to='to' :disabled='disabled')
+    | {{ display }}
+  a(v-else class='filter-button' disabled='disabled')
+    | {{ display }}
 </template>
 
 <script>
@@ -10,6 +12,11 @@
 
   const component = {
     props: ['letter', 'event'],
+    data: function() {
+      return {
+        display: this.letter.toUpperCase(),
+      };
+    },
     meteor: {
       disabled: function() {
         let regex;
@@ -22,12 +29,17 @@
         return !People.findOne({name: {$regex: regex, $options: 'i'}});
       }
     },
-    methods: {
-      display: function() {
-        return this.letter.toUpperCase();
-      },
-      setFilterLetter: function() {
-        Session.set('filterLetter', this.letter);
+    computed: {
+      to: function() {
+        if (!this.event) {
+          return null;
+        }
+
+        return {
+          name: 'eventPage',
+          params: { eventFriendlyId: this.event.friendlyId },
+          query: { filter: this.letter }
+        };
       }
     }
   };

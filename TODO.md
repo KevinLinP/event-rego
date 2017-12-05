@@ -1,9 +1,10 @@
 * better PayPage
-* figure out EventPage browser history
+* undo for paidWithCash
 * desktop view fallback
-* little indicator for admin mode
 
 Completed
 * pay by cash
 * paid view
 * event date parsing
+* little indicator for admin mode
+* figure out EventPage browser history

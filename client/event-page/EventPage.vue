@@ -7,10 +7,10 @@ div
       small ${{event.cashAmount}}
 
   .mb-4(v-if='loggedIn')
-    paid-only-toggle
+    paid-only-toggle(v-if='event' :event='event' :paidOnly='paidOnly')
 
   .mb-3
-    people-list(v-if='viewPaidOnly' :event='event' :paidOnly='true')
+    people-list(v-if='paidOnly' :event='event' :paidOnly='true')
     div(v-else)
       people-list(v-if="filterLetter" :event='event' :filterLetter='filterLetter')
       filter-buttons(v-else :event='event')
@@ -40,12 +40,6 @@ div
       },
       loggedIn: function() {
         return !!Meteor.userId();
-      },
-      viewPaidOnly: function() {
-        return Session.get('viewPaidOnly');
-      },
-      filterLetter: function() {
-        return Session.get('filterLetter');
       }
     },
     methods: {
@@ -54,6 +48,12 @@ div
       }
     },
     computed: {
+      paidOnly: function() {
+        return !!this.$route.query.paidOnly;
+      },
+      filterLetter: function() {
+        return this.$route.query.filter;
+      },
       regoCount: function() {
         if (this.event) {
           return Regos.find({eventId: this.event._id}).count();

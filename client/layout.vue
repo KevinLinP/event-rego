@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  .status-bar-reconnecting(v-if='reconnecting') reconnecting to server ...
+  .status-bar-reconnecting(v-if='connecting') connecting to server ...
   .status-bar-disconnected(v-else-if='disconnected') disconnected from server =(
   .container.pt-3.pt-md-4
     router-view
@@ -9,7 +9,7 @@ div
 <script>
   const component = {
     meteor: {
-      reconnecting: function() {
+      connecting: function() {
         switch (Meteor.status().status) {
           case 'connecting':
           case 'waiting':

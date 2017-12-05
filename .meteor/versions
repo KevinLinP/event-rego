@@ -22,7 +22,8 @@ caching-compiler@1.1.9
 caching-html-compiler@1.1.2
 callback-hook@1.0.10
 check@1.2.5
-coffeescript@1.0.17
+coffeescript@1.12.7_3
+coffeescript-compiler@1.12.7_3
 dalgard:jade@0.5.4_1
 dalgard:jade-compiler@0.5.4_1
 dburles:collection-helpers@1.1.0
@@ -55,12 +56,12 @@ less@2.7.11
 livedata@1.0.18
 localstorage@1.2.0
 logging@1.1.19
-mdg:validation-error@0.2.0
+mdg:validation-error@0.5.1
 meteor@1.8.2
 meteor-base@1.2.0
 minifier-css@1.2.16
 minifier-js@2.2.2
-minifiers@1.0.2
+minifiers@1.1.7
 minimongo@1.4.3
 mobile-experience@1.0.5
 mobile-status-bar@1.0.14

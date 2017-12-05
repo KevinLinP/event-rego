@@ -27,12 +27,10 @@ dburles:collection-helpers
 percolate:migrations
 aldeed:simple-schema
 accounts-password
-dalgard:jade
 vuejs:meteor-integration
 akryum:vue-component
 akryum:vue-router2
 akryum:vue-sass
 akryum:vue-pug
 underscore
-blaze-html-templates
 session

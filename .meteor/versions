@@ -15,7 +15,6 @@ babel-runtime@1.1.1
 base64@1.0.10
 binary-heap@1.0.10
 blaze@2.3.2
-blaze-html-templates@1.1.2
 blaze-tools@1.0.10
 boilerplate-generator@1.3.1
 caching-compiler@1.1.9
@@ -24,8 +23,6 @@ callback-hook@1.0.10
 check@1.2.5
 coffeescript@1.12.7_3
 coffeescript-compiler@1.12.7_3
-dalgard:jade@0.5.4_1
-dalgard:jade-compiler@0.5.4_1
 dburles:collection-helpers@1.1.0
 ddp@1.4.0
 ddp-client@2.2.0
@@ -61,7 +58,6 @@ meteor@1.8.2
 meteor-base@1.2.0
 minifier-css@1.2.16
 minifier-js@2.2.2
-minifiers@1.1.7
 minimongo@1.4.3
 mobile-experience@1.0.5
 mobile-status-bar@1.0.14
@@ -103,7 +99,6 @@ templating-runtime@1.3.2
 templating-tools@1.1.2
 tmeasday:test-reporter-helpers@0.2.1
 tracker@1.1.3
-ui@1.0.13
 underscore@1.0.10
 url@1.1.0
 vuejs:meteor-integration@0.1.4

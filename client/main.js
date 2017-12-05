@@ -13,7 +13,7 @@ Meteor.startup(() => {
 
   new Vue({
     router,
-    el: '#app',
+    el: 'body',
     render: (createElement) => {
       return createElement(Vue.component('layout'));
     }

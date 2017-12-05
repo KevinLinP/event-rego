@@ -80,6 +80,11 @@ const getRegoData = (payment) => {
 
 Meteor.methods({
   'regos.payWithCash'({eventId, personId}) {
+    if (!Meteor.userId()) { 
+      console.log('unauthorized operation detected!');
+      return;
+    }
+
     const { event, person } = fetchObjects(eventId, personId);
 
     let rego = {
@@ -94,6 +99,11 @@ Meteor.methods({
     Regos.insert(rego);
   },
   'regos.undoPayWithCash'({eventId, personId}) {
+    if (!Meteor.userId()) { 
+      console.log('unauthorized operation detected!');
+      return;
+    }
+
     Regos.remove({
       eventId,
       personId,

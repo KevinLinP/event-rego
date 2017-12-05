@@ -19,6 +19,11 @@ const formatPhoneNumber = (phoneNumber) => {
 
 Meteor.methods({
   'people.insert'(name, phoneNumber) {
+    if (!Meteor.userId()) { 
+      console.log('unauthorized operation detected!');
+      return;
+    }
+
     let phoneNumbers = {}
     if (phoneNumber) {
       phoneNumbers = formatPhoneNumber(phoneNumber);
@@ -37,9 +42,5 @@ Meteor.methods({
     People.schema.clean(person);
     People.schema.validate(person);
     return People.insert(person);
-  },
-
-  'people.remove'(id) {
-    return People.remove({_id: id});
-  },
+  }
 });

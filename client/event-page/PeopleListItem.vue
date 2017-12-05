@@ -64,7 +64,7 @@ tr.person-list-item
         }
 
         if (this.paidWithPaypal) {
-          alert('You cannot undo a PayPal payment through this app');
+          alert('This app cannot refund PayPal payments =(');
         } else {
           const confirm = window.confirm(`Do you really want to undo ${this.person.name}'s cash payment?`);
           if (confirm) {

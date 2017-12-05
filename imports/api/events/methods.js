@@ -4,6 +4,11 @@ import { Events } from './events.js';
 
 Meteor.methods({
   'events.insert'(fields) {
+    if (!Meteor.userId()) { 
+      console.log('unauthorized operation detected!');
+      return;
+    }
+
     var friendlyUrl = require('friendly-url');
     var chrono = require('chrono-node');
 
@@ -25,6 +30,11 @@ Meteor.methods({
   },
 
   'events.remove'(id) {
+    if (!Meteor.userId()) { 
+      console.log('unauthorized operation detected!');
+      return;
+    }
+
     return Events.remove({_id: id});
   },
 });

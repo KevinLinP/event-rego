@@ -10,6 +10,11 @@ export default [
     component: '/client/login-page/LoginPage.vue'
   },
   {
+    path: '/logout',
+    name: 'logoutPage',
+    component: '/client/login-page/LoginPage.vue'
+  },
+  {
     path: '/:eventFriendlyId',
     name: 'eventPage',
     component: '/client/event-page/EventPage.vue'

@@ -78,7 +78,8 @@
 }
 
 .paid-indicator {
-  width: 33px;
+  width: 100%;
+  min-width: 33px;
   position: relative;
 
   .fa-paypal {
@@ -147,4 +148,19 @@
     @extend .nav-item;
     @extend .nav-link;
   }
+}
+
+.status-bar {
+  @extend .text-center;
+  width: 100%;
+}
+
+.status-bar-reconnecting {
+  @extend .status-bar;
+  @extend .alert-warning;
+}
+
+.status-bar-disconnected {
+  @extend .status-bar;
+  @extend .alert-danger;
 }

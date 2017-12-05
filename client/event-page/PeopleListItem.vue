@@ -4,7 +4,7 @@ tr.person-list-item
   td.person-list-item-buttons(v-if='event')
     .paid-indicator(v-if='paid')
       i.fa.fa-paypal(v-if='paidWithPaypal')
-      i.fa.fa-check
+      i.fa.fa-check(@click='undoPayWithCash')
 
     span(v-else)
       button.pay-with-cash-button(v-if='loggedIn' @click='payWithCash')
@@ -57,6 +57,23 @@ tr.person-list-item
         const personId = this.person._id;
 
         Meteor.call('regos.payWithCash', {eventId, personId});
+      },
+      undoPayWithCash: function(event) {
+        if (!this.loggedIn) {
+          return;
+        }
+
+        if (this.paidWithPaypal) {
+          alert('You cannot undo a PayPal payment through this app');
+        } else {
+          const confirm = window.confirm(`Do you really want to undo ${this.person.name}'s cash payment?`);
+          if (confirm) {
+            const eventId = this.event._id;
+            const personId = this.person._id;
+
+            Meteor.call('regos.undoPayWithCash', {eventId, personId});
+          }
+        }
       }
     }
   };

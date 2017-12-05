@@ -1,4 +1,4 @@
-* undo for paidWithCash
+* admin lockdown all the methods
 * desktop view fallback
 
 Completed
@@ -8,3 +8,4 @@ Completed
 * little indicator for admin mode
 * figure out EventPage browser history
 * better PayPage
+* undo for paidWithCash

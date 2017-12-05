@@ -93,6 +93,13 @@ Meteor.methods({
     Regos.schema.validate(rego);
     Regos.insert(rego);
   },
+  'regos.undoPayWithCash'({eventId, personId}) {
+    Regos.remove({
+      eventId,
+      personId,
+      type: 'cash'
+    });
+  },
 
   // TODO: refactor
   'regos.createPaypalPayment'({eventId, personId}) {

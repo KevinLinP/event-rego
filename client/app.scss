@@ -164,3 +164,8 @@
   @extend .status-bar;
   @extend .alert-danger;
 }
+
+.paypal-button-container {
+  @extend .mx-auto;
+  width: 150px;
+}

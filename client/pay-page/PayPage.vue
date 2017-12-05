@@ -1,23 +1,26 @@
 <template lang="pug">
-div
-  div(v-if='person')
-    | {{person.name}}
-  div is about to pay
-  div(v-if='event')
-    div
-      | ${{event.cashAmount}} + ${{event.paypalFee()}}
-    div 
-      | for 
-    div 
-      | {{event.name}}
+.text-center
+  .mb-5
+    .h3(v-if='person')
+      | {{person.name}}
+    .mb-1 
+      | is about to pay
+    div(v-if='event')
+      .h2
+        | ${{displayCashAmount}} + ${{displayPaypalFee}}
+      .mb-1
+        | for 
+      .h3
+        | {{event.name}}
 
-    div(v-if='$subReady.singleRego')
-      div(v-if='rego')
-        div(v-if='rego.status == "completed"') Payment completed
-        div(v-else) Payment in progress
-      div(v-else)
-        small (safety third; as usual, please make sure the address bar has 'PayPal, Inc' in green before entering in any PayPal information)
-        #paypal-button
+  div(v-if='$subReady.singleRego')
+    div(v-if='rego')
+      div(v-if='rego.status == "completed"') Payment completed
+      div(v-else) Payment in progress
+    div(v-else)
+      .mb-1
+        #paypal-button.paypal-button-container
+      small (as usual, please make sure the address bar has 'PayPal,&nbsp;Inc' in green before entering in any PayPal information)
 
 </template>
 
@@ -102,6 +105,7 @@ div
           window.paypal.Button.render({
             env: 'sandbox', // Or 'sandbox'
             commit: true, // Show a 'Pay Now' button
+            style: {size: 'responsive'},
             payment: function() {
               const id = applyWithPromise('regos.createPaypalPayment', [{eventId, personId}]);
               return id;
@@ -115,6 +119,14 @@ div
         };
 
         document.head.appendChild(paypalScript);
+      }
+    },
+    computed: {
+      displayCashAmount: function() {
+        return this.event.cashAmount.toFixed(2);
+      },
+      displayPaypalFee: function() {
+        return this.event.paypalFee().toFixed(2);
       }
     }
   };

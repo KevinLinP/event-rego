@@ -15,7 +15,7 @@ Events.schema = new SimpleSchema({
 });
 
 Events.helpers({
-  // inverse of y = x - 0.029x - .3
+  // ?inverse? of y = x - 0.029x - .3
   paypalFee() {
     let cashAmountCents = this.cashAmount * 100;
     let feeCents = (cashAmountCents + 30) / 0.971;

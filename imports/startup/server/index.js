@@ -1,6 +1,7 @@
 // Import server startup through a single index entry point
 
 import './migrations.js';
+import './accounts.js';
 
 import '../../api/events/events.js';
 import '../../api/events/methods.js';

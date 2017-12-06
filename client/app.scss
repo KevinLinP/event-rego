@@ -165,11 +165,6 @@
   @extend .alert-danger;
 }
 
-.paypal-button-container {
-  @extend .mx-auto;
-  width: 150px;
-}
-
 .paid-only-stats {
   @extend .mb-4;
   @extend .text-center;

@@ -19,7 +19,7 @@
       div(v-else) Payment in progress
     div(v-else)
       .mb-1
-        #paypal-button.paypal-button-container
+        #paypal-button
       small (as usual, please make sure the address bar has 'PayPal,&nbsp;Inc' in green before entering in any PayPal information)
 
 </template>
@@ -97,29 +97,19 @@
       const eventId = this.event._id;
       const personId = this.person._id;
 
-      if (!document.getElementById('paypal-script')) {
-        const paypalScript = document.createElement('script');
-        paypalScript.setAttribute('src', 'https://www.paypalobjects.com/api/checkout.js')
-        paypalScript.setAttribute('id', 'paypal-script')
-        paypalScript.onload = function() {
-          window.paypal.Button.render({
-            env: 'sandbox', // Or 'sandbox'
-            commit: true, // Show a 'Pay Now' button
-            style: {size: 'responsive'},
-            payment: function() {
-              const id = applyWithPromise('regos.createPaypalPayment', [{eventId, personId}]);
-              return id;
-            },
-            onAuthorize: function(data) {
-              const paymentId = data.paymentID;
-              const payerId = data.payerID;
-              applyWithPromise('regos.authorizePaypalPayment', [{paymentId, payerId}]);
-            }
-          }, '#paypal-button');
-        };
-
-        document.head.appendChild(paypalScript);
-      }
+      window.paypal.Button.render({
+        env: 'sandbox', // Or 'sandbox'
+        commit: true, // Show a 'Pay Now' button
+        payment: function() {
+          const id = applyWithPromise('regos.createPaypalPayment', [{eventId, personId}]);
+          return id;
+        },
+        onAuthorize: function(data) {
+          const paymentId = data.paymentID;
+          const payerId = data.payerID;
+          applyWithPromise('regos.authorizePaypalPayment', [{paymentId, payerId}]);
+        }
+      }, '#paypal-button');
     },
     computed: {
       displayCashAmount: function() {

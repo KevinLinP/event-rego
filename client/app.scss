@@ -10,10 +10,11 @@
   }
 }
 
-.form-inline {
-  // extends bootstrap form-inline
+.person-form-controls {
+  @extend .d-flex;
   input {
-    @extend .form-control;
+    @extend .mr-2;
+    flex-grow: 1;
   }
 }
 

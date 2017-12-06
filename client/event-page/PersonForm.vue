@@ -1,11 +1,8 @@
 <template lang="pug">
 form.form(@submit="createPerson")
-  .form-row
-    .col-10
-      input.form-control(type='text' v-model="name" placeholder='name' required='true')
-
-    .col-2
-      button(type="submit" class="btn btn-primary") add
+  .person-form-controls
+    input(type='text' v-model="name" placeholder='name' required='true')
+    button(type="submit" class="btn btn-primary") add
 </template>
 
 <script>

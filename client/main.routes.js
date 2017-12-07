@@ -10,11 +10,6 @@ export default [
     component: '/client/login-page/LoginPage.vue'
   },
   {
-    path: '/create-user',
-    name: 'createUser',
-    component: '/client/create-user-page/CreateUserPage.vue'
-  },
-  {
     path: '/logout',
     name: 'logoutPage',
     component: '/client/login-page/LoginPage.vue'

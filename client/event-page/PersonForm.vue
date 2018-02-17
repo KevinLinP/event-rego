@@ -18,25 +18,27 @@ form.form(@submit="createPerson")
       createPerson: function(jsEvent) {
         jsEvent.preventDefault();
 
-        Meteor.call('people.insert', this.name, (error, person) => {
+        Meteor.call('people.insert', this.name, (error, result) => {
+          let name = this.name.trim();
+          var firstLetter;
+
+          if (name.match(/^[a-zA-Z]/)) {
+            firstLetter = name[0].toLowerCase();
+          } else {
+            firstLetter = '#';
+          }
+
+          let router = this.$router;
+          let currentRoute = router.currentRoute;
+          let currentFilter = currentRoute.query.filter;
+
+          if (currentFilter != firstLetter) {
+            // TODO: back button behaves unpredictably after nav
+            router.push({path: currentRoute.path, query: {filter: firstLetter}});
+          }
+
           if (!error) {
-            var firstLetter;
-            let name = person.name;
-            let regex = /^[a-zA-Z]/;
-
-            if (name.match(regex)) {
-              firstLetter = name[0].toLowerCase();
-            } else {
-              firstLetter = '#';
-            }
-
-            let router = this.$router;
-            let currentRoute = router.currentRoute;
-            let currentFilter = currentRoute.query.filter;
-
-            if (currentFilter != firstLetter) {
-              router.push({path: currentRoute.path, query: {filter: firstLetter}});
-            }
+            this.name = '';
           }
         });
       }

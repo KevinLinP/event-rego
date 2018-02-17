@@ -33,8 +33,7 @@ form.form(@submit="createPerson")
           let currentFilter = currentRoute.query.filter;
 
           if (currentFilter != firstLetter) {
-            // TODO: back button behaves unpredictably after nav
-            router.push({path: currentRoute.path, query: {filter: firstLetter}});
+            router.push({path: currentRoute.path, query: {filter: firstLetter, backViaRouter: 'true'}});
           }
 
           if (!error) {

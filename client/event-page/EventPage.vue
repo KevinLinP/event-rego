@@ -10,7 +10,8 @@ div
     paid-only-toggle(v-if='event' :event='event' :paidOnly='paidOnly')
 
   .mb-3(v-if='event')
-    people-list(v-if='paidOnly' :event='event' :paidOnly='true')
+    div(v-if='paidOnly')
+      people-list(:event='event' :paidOnly='true')
     div(v-else)
       people-list(v-if="filterLetter" :event='event' :filterLetter='filterLetter')
       filter-buttons(v-else :event='event')

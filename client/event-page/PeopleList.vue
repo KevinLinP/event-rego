@@ -4,7 +4,7 @@ div
     .d-flex.justify-content-between.align-items-center.mb-2
       .filter-letter-heading {{ filterLetter.toUpperCase() }}
       div
-        button.people-list-back(onclick="javascript:history.back()")
+        button.people-list-back(@click='navigateBack')
           | back
 
   .paid-only-stats.row(v-if='paidOnly')
@@ -72,6 +72,18 @@ div
         return this.event.cashAmount * cashRegos;
       }
     },
+    methods: {
+      navigateBack: function () {
+        let router = this.$router;
+        let currentRoute = router.currentRoute;
+
+        if (currentRoute.query.backViaRouter) {
+          router.push({path: currentRoute.path});
+        } else {
+          this.$router.go(-1);
+        }
+      }
+    }
   };
 
   export default component;

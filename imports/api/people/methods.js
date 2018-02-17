@@ -41,6 +41,8 @@ Meteor.methods({
 
     People.schema.clean(person);
     People.schema.validate(person);
-    return People.insert(person);
+    People.insert(person);
+
+    return person;
   }
 });

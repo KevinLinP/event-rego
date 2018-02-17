@@ -24,3 +24,6 @@ Meteor.startup(() => {
 if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
   document.documentElement.classList.add('unfuck-ios-touch');
 }
+
+var attachFastClick = require('fastclick');
+attachFastClick(document.body);

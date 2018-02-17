@@ -68,6 +68,11 @@
   }
 }
 
+.unfuck-ios-touch .people-list-back:hover {
+  color: $blue;
+  background-color: inherit;
+}
+
 .person-list-item-name {
   font-size: 125%;
 }
@@ -132,6 +137,11 @@
     @extend .disabled;
     color: #CCCCCC !important;
   }
+}
+
+.unfuck-ios-touch .filter-button:hover {
+  color: #666;
+  background-color: inherit;
 }
 
 .filter-letter-heading {

@@ -19,3 +19,8 @@ Meteor.startup(() => {
     }
   });
 });
+
+// seriously, fuck you Apple.
+if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+  document.documentElement.classList.add('unfuck-ios-touch');
+}

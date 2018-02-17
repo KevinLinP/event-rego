@@ -11,7 +11,8 @@ div
       input(type='text' v-model='startsAt' placeholder='date and time')
 
     .input-group
-      .input-group-addon $
+      .input-group-prepend
+        .input-group-text $
       input(type='number' v-model='cashAmount' placeholder='hash cash' step="1.00")
 
     button(type="submit" class="btn btn-primary") create
